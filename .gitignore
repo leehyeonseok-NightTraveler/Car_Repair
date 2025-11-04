@@ -1,4 +1,22 @@
+<<<<<<< Updated upstream
 # Compiled class file
+=======
+# === Build output ===
+/target/
+/bin/
+/build/
+/out/
+
+# === IDE settings ===
+/.project
+/.classpath
+/.settings/
+
+# === Logs ===
+*.log
+
+# === Java compiled files ===
+>>>>>>> Stashed changes
 *.class
 
 # Log file
@@ -19,6 +37,34 @@
 *.tar.gz
 *.rar
 
+<<<<<<< Updated upstream
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+=======
+# === Temp & backup files ===
+*.tmp
+*.bak
+
+# === Spring Boot / application config ===
+# ⚠️ Keep shared config tracked
+!src/main/resources/application.yml
+!src/main/resources/application.properties
+
+# === Node (for frontend) ===
+/node_modules/
+/package-lock.json
+
+# === Crash logs ===
+hs_err_pid*
+replay_pid*
+
+# === Gradle cache ===
+.gradle/
+
+# === Allow static resources ===
+!src/main/resources/static/
+!src/main/resources/static/**
+!src/main/resources/templates/
+!src/main/resources/templates/**
+>>>>>>> Stashed changes
