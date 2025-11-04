@@ -19,6 +19,11 @@ public class CustomerHelpController {
     @Autowired
     private CustomerHelpService service;
     
+    @GetMapping("/main")
+    public String showMainPage() {
+        // ViewResolver가 /WEB-INF/views/main.jsp로 매핑함
+        return "main";
+    }
     
     
 //-------------------회원가입 컨트롤러-----------------------
