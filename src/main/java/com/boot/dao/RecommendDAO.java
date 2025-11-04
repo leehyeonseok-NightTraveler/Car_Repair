@@ -1,9 +1,12 @@
 package com.boot.dao;
 
 import java.util.ArrayList;
+
+import org.apache.ibatis.annotations.Mapper;
+
 import com.boot.dto.RecommendDTO;
 
-// @Mapper 제거 필수!
+@Mapper
 public interface RecommendDAO {
     int insertCoordinate(RecommendDTO dto);
     int selectListCount(RecommendDTO dto);

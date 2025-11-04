@@ -2,7 +2,6 @@ package com.boot.controller;
 
 import com.boot.dto.AccountDTO;
 import com.boot.service.AccountService;
-import com.boot.service.CustomerHelpService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,8 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Slf4j
 public class CustomerHelpController {
 
-    @Autowired
-    private CustomerHelpService service;
     
     @GetMapping("/main")
     public String showMainPage() {
