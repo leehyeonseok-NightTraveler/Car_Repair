@@ -8,3 +8,4 @@
     <h1>Hello JSP from Spring Boot!</h1>
 </body>
 </html>
+	
