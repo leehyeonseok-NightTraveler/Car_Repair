@@ -46,7 +46,7 @@ hs_err_pid*
 replay_pid*
 
 # === Gradle cache ===
-.gradle/
+/.gradle/
 
 # === Allow static resources ===
 !src/main/resources/static/
