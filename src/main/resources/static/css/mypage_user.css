@@ -1,0 +1,23 @@
+@charset 'utf-8';
+
+/* 사용자 마이페이지 색상 포인트 */
+.mypage-body .mypage-section h3 {
+  border-left-color: #007bff;
+}
+
+/* 예약 상태 강조 */
+.mypage-body .status.reserved {
+  color: #2980b9;
+  font-weight: bold;
+}
+
+/* 차량 리스트 버튼 */
+.mypage-body .car-list .btn-sub {
+  background-color: #eef6ff;
+  color: #007bff;
+  border-color: #bcdcff;
+}
+
+.mypage-body .car-list .btn-sub:hover {
+  background-color: #d9ecff;
+}

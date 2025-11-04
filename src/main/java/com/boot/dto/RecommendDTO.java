@@ -6,18 +6,11 @@ import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
+@Data
 @NoArgsConstructor 
-@AllArgsConstructor 
-@Setter
-@Getter
-@ToString
-@EqualsAndHashCode
+@AllArgsConstructor
 public class RecommendDTO {
 	
 	private String storeId;       // store_id
