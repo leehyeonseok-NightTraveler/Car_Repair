@@ -8,7 +8,6 @@
 /.project
 /.classpath
 /.settings/
-/.metadata/
 
 # === Logs ===
 *.log
@@ -34,9 +33,9 @@ Thumbs.db
 *.bak
 
 # === Spring Boot / application config ===
-# 개인 설정 파일은 따로 관리 (ex: application-local.properties)
-# application-*.yml
-# application-*.properties
+# ⚠️ Keep shared config tracked
+!src/main/resources/application.yml
+!src/main/resources/application.properties
 
 # === Node (for frontend) ===
 /node_modules/
@@ -46,7 +45,11 @@ Thumbs.db
 hs_err_pid*
 replay_pid*
 
-# Gradle build cache
+# === Gradle cache ===
 .gradle/
-build/
-out/
+
+# === Allow static resources ===
+!src/main/resources/static/
+!src/main/resources/static/**
+!src/main/resources/templates/
+!src/main/resources/templates/**
