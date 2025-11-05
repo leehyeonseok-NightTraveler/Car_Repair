@@ -1,0 +1,46 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.dao.NoticeDAO">
+    <select id="noticeList" resultType="com.boot.dto.NoticeDTO">
+        <![CDATA[
+        SELECT *
+        FROM (
+            SELECT rownum AS rn, inner_query.*
+            FROM (
+                SELECT
+                    notice_no, notice_title, notice_writer, notice_content, notice_created, notice_views
+                FROM tbl_notice
+                ORDER BY notice_no DESC
+            ) inner_query
+            WHERE rownum <= #{pageNum} * #{amount}
+        )
+        WHERE rn > (#{pageNum} - 1) * #{amount}
+        ]]>
+    </select>
+
+    <select id="noticeView">
+        SELECT *
+        FROM tbl_notice
+        WHERE notice_no = #{notice_no}
+    </select>
+
+    <insert id="writeProcess">
+        INSERT INTO tbl_notice (notice_no, notice_title, notice_content)
+        VALUES(SEQ_NOTICE_NO.NEXTVAL, #{notice_title}, #{notice_content})
+    </insert>
+
+    <update id="modifyProcess">
+        update tbl_notice set notice_title=#{notice_title}, notice_content=#{notice_content}
+        where notice_no=#{notice_no}
+    </update>
+
+    <delete id="deleteProcess">
+        DELETE FROM tbl_notice WHERE notice_no=#{notice_no}
+    </delete>
+
+    <select id="getTotalCount" resultType="int">
+        select count(*) from tbl_notice
+    </select>
+
+</mapper>
