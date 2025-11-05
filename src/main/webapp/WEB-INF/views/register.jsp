@@ -8,7 +8,8 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/register.css'/>">
 </head>
 <body>
-
+	<jsp:include page="/WEB-INF/views/header.jsp" />
+	
     <div class="register-container">
         <form action="/registerProc" method="post" class="register-form">
             <h2>회원가입</h2>
@@ -51,5 +52,7 @@
         </form>
     </div>
 
+	<jsp:include page="/WEB-INF/views/footer.jsp" />
+	
 </body>
 </html>
