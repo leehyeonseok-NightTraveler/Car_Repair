@@ -5,9 +5,11 @@
     <title>공지사항 상세보기</title>
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/js/notice.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/notice.css">
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/header.jsp"/>
 <main id="notice-view-container" class="notice-view-container">
     <!-- 상세보기 헤더 -->
     <section id="notice-view-header" class="notice-view-header">
@@ -42,5 +44,7 @@
         </form>
     </section>
 </main>
+<jsp:include page="/WEB-INF/views/footer.jsp"/>
+
 </body>
 </html>

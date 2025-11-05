@@ -5,6 +5,7 @@
     <title>공지사항 목록</title>
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/js/notice.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainpage.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/notice.css">
 </head>
 <body>
@@ -12,6 +13,8 @@
     <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
     <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 </form>
+
+<jsp:include page="/WEB-INF/views/header.jsp" />
 
 <main id="notice-list-container">
     <!-- 헤더 영역 -->
@@ -74,5 +77,7 @@
                 onclick="location.href='notice_write'">글쓰기</button>
     </div>
 </main>
+
+<jsp:include page="/WEB-INF/views/footer.jsp" />
 </body>
 </html>

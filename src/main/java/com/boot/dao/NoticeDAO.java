@@ -25,4 +25,7 @@ public interface NoticeDAO {
 
     // 전체 게시글 수 조회 (페이징용)
     int getTotalCount();
+
+    // 조회수 증가
+    void increaseViews(HashMap<String, String> param);
 }
