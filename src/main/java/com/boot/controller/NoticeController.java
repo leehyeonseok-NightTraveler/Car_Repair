@@ -43,7 +43,7 @@ public class NoticeController {
                               Model model, Criteria cri) {
         log.info("notice_view()");
 
-        service.increasViews(param);
+        service.increaseViews(param);
 
         NoticeDTO noticeView = service.noticeView(param);
         int total = service.getTotalCount();

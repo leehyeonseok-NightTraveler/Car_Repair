@@ -33,9 +33,8 @@
             </tr>
             <tr>
                 <td class="modify-input">
-                    <textarea name="notice_content" class="textarea-content" id="notice-content">
-                        ${modify.notice_content}
-                    </textarea>
+                    <textarea name="notice_content" class="textarea-content"
+                              id="notice-content">${modify.notice_content}</textarea>
                 </td>
             </tr>
         </table>

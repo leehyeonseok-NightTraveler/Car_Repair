@@ -53,7 +53,7 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public void increasViews(HashMap<String, String> param) {
+    public void increaseViews(HashMap<String, String> param) {
         NoticeDAO dao = sqlSession.getMapper(NoticeDAO.class);
         dao.increaseViews(param);
     }
