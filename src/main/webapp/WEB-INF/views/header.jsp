@@ -22,14 +22,14 @@
 	        </h1>
 	        <ul id="gnb">
 	            <li><a href="<c:url value='/recommend' />">주변 정비소</a></li>
-	            <li class="dropdown-parent"><a href="#">게시판</a>
+				<li class="dropdown-parent"><a href="#">고객센터</a>
 	                <ul class="submenu">
-	                    <li><a href="#">이벤트</a></li>
-                        <li><a href="<c:url value='/notice/notice_list'/>">공지사항</a></li>
-	                    <li><a href="<c:url value='/faq'/>">FAQ</a></li>
-	                </ul>
-	            </li>
-	        </ul>
+                    	<li><a href="#">1:1 문의</a></li>
+                 		<li><a href="<c:url value='/notice/notice_list'/>">공지사항</a></li>
+                    	<li><a href="<c:url value='/faq'/>">FAQ</a></li>
+	        		</ul>
+			</ul>
+
 	        <ul class="util">
 	        <c:choose>
 	          <c:when test="${sessionScope.role == 'ADMIN' || sessionScope.role == 'USER'}">
