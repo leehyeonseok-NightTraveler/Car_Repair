@@ -8,10 +8,18 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/register.css'/>">
 </head>
 <body>
-
-    <div class="register-container">
+	<jsp:include page="/WEB-INF/views/header.jsp" />
+	
+    <section class="register-container"> <%-- div를 section으로 변경 (시맨틱) --%>
         <form action="/registerProc" method="post" class="register-form">
-            <h2>회원가입</h2>
+            
+            <%-- [★수정됨★] 탭 메뉴 추가 --%>
+            <div class="register-tabs">
+                <a href="<c:url value='/register'/>" class="active">일반 회원가입</a>
+                <a href="<c:url value='/registerstore'/>">업체 회원가입</a>
+            </div>
+            
+            <h1>일반 회원가입</h1> <%-- h2를 h1로 변경하고 텍스트 수정 --%>
             
             <%-- 서버에서 전달된 메시지 표시 --%>
             <c:if test="${not empty error_msg}">
@@ -49,7 +57,9 @@
             <button type="submit" class="submit-button">가입하기</button>
             <p class="login-link">이미 계정이 있으신가요? <a href="/login">로그인</a></p>
         </form>
-    </div>
+    </section>
 
+	<jsp:include page="/WEB-INF/views/footer.jsp" />
+	
 </body>
 </html>
