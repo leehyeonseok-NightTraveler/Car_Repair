@@ -23,12 +23,8 @@
 	        </h1>
 	        <ul id="gnb">
 	            <li><a href="<c:url value='/recommend' />">주변 정비소</a></li>
-	            <li class="dropdown-parent"><a href="#">게시판</a>
-	                <ul class="submenu">
-	                    <li><a href="#">이벤트</a></li>
-	                    <li><a href="<c:url value='/faq'/>">FAQ</a></li>
-	                </ul>
-	            </li>
+                <li><a href="<c:url value='/faq'/>">FAQ</a></li>
+                <li><a href="#">이벤트</a></li>
 	        </ul>
 	        <ul class="util">
 	        <c:choose>
