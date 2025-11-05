@@ -132,7 +132,7 @@ header .inner #gnb li a:hover {
 
 
 /* ============================================= */
-/* 3. 회원가입 폼 섹션 (★수정된 부분★) */
+/* 3. 회원가입 폼 섹션 (★탭 스타일 수정됨★) */
 /* ============================================= */
 .register-container {
     width: 100%;
@@ -151,8 +151,48 @@ header .inner #gnb li a:hover {
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
+/* === [★여기부터 "더 멋있게" 수정된 탭★] === */
+.register-tabs {
+    display: flex;
+    border-radius: 6px; /* 탭 전체를 둥글게 */
+    overflow: hidden; /* 둥근 모서리 적용 */
+    border: 1px solid #ddd; /* 전체 테두리 */
+    margin-bottom: 40px; /* 폼 제목과의 간격 */
+}
+
+.register-tabs a {
+    flex: 1; /* 1:1 비율로 탭 영역을 나눔 */
+    padding: 15px;
+    text-align: center;
+    font: bold 16px/1 "arial";
+    color: #777; /* 비활성 탭 글자색 */
+    text-decoration: none;
+    background-color: #f9f9f9; /* 비활성 탭 배경색 */
+    border-bottom: none; /* 기존 밑줄 제거 */
+    transition: all 0.3s ease;
+}
+
+/* 탭 구분선 */
+.register-tabs a:first-child {
+    border-right: 1px solid #ddd;
+}
+
+/* 활성 탭 스타일 */
+.register-tabs a.active {
+    color: #fff;
+    background-color: #555; /* GNB와 동일한 활성색 */
+}
+
+/* 비활성 탭에 마우스를 올렸을 때 */
+.register-tabs a:not(.active):hover {
+    background-color: #eee;
+    color: #333;
+}
+/* === [★여기까지 "더 멋있게" 수정된 탭★] === */
+
+
 /* "회원가입" 제목 - 메인 h1 스타일과 유사하게 */
-.register-form h2 {
+.register-form h1 {
     font: bold 24px/1 "arial";
     color: #555;
     text-align: center;
@@ -183,6 +223,19 @@ header .inner #gnb li a:hover {
     font-family: "arial", sans-serif;
 }
 
+/* 업체소개(textarea) 스타일 추가 */
+.form-group textarea {
+    width: 100%;
+    height: 120px;
+    padding: 12px 15px;
+    font-size: 15px;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: "arial", sans-serif;
+    resize: vertical;
+}
+
 /* 가입하기 버튼 */
 .submit-button {
     width: 100%;
@@ -207,79 +260,4 @@ header .inner #gnb li a:hover {
 /* 메시지 (에러, 성공) */
 .message {
     text-align: center;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    font: 14px/1.4 "arial";
-}
-
-.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
-.success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-/* 로그인 링크 */
-.login-link {
-    text-align: center;
-    margin-top: 25px;
-    font: 14px/1 "arial";
-    color: #777;
-}
-
-.login-link a {
-    color: #555;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-/* ============================================= */
-/* 4. 푸터 (메인 CSS와 동일) */
-/* ============================================= */
-footer {
-    padding: 50px 0;
-    background-color: #333;
-    color: #aaa;
-    font-size: 14px;
-}
-
-footer .inner {
-    width: 1180px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-footer .footer-logo a {
-    font: bold 20px/1 "arial";
-    color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-footer .footer-logo img {
-    height: 40px;
-}
-
-footer .footer-info {
-    text-align: right;
-}
-
-footer .footer-info p {
-    margin-bottom: 8px;
-    line-height: 1.6;
-}
-
-footer .footer-info .copyright {
-    margin-top: 15px;
-    color: #777;
-    font-size: 13px;
-}
+  }

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @Slf4j
-public class CustomerHelpController {
+public class AccountController {
 
     
     @GetMapping("/main")
