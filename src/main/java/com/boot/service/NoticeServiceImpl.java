@@ -51,4 +51,10 @@ public class NoticeServiceImpl implements NoticeService {
         NoticeDAO dao = sqlSession.getMapper(NoticeDAO.class);
         return dao.getTotalCount();
     }
+
+    @Override
+    public void increasViews(HashMap<String, String> param) {
+        NoticeDAO dao = sqlSession.getMapper(NoticeDAO.class);
+        dao.increaseViews(param);
+    }
 }

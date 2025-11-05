@@ -12,5 +12,6 @@ public interface NoticeService {
     void writeProcess(HashMap<String, String> param);
     void modifyProcess(HashMap<String, String> param);
     void deleteProcess(HashMap<String, String> param);
+    void increasViews(HashMap<String, String> param);
     public int getTotalCount();
 }

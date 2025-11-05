@@ -5,9 +5,12 @@
     <title>공지사항 작성</title>
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/js/notice.js"></script>
+    <script src="${pageContext.request.contextPath}/js/"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/notice.css">
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/header.jsp"/>
 <main id="notice-write-container" class="notice-write-container">
     <form method="post" action="writeProcess" id="notice-write-form" class="notice-write-form">
         <table id="notice-write-table" class="notice-write-table">
@@ -40,5 +43,6 @@
     <!-- 결과 메시지 -->
     <div id="result-message" class="result-message"></div>
 </main>
+<jsp:include page="/WEB-INF/views/footer.jsp"/>
 </body>
 </html>

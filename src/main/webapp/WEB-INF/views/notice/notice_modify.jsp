@@ -5,9 +5,11 @@
     <title>공지사항 수정</title>
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/js/notice.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/notice.css">
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/header.jsp"/>
 <main id="notice-modify-container" class="notice-modify-container">
     <form method="post" action="modifyProcess" id="notice-modify-form" class="notice-modify-form">
         <!-- hidden 값 -->
@@ -49,5 +51,6 @@
     <!-- 결과 메시지 -->
     <div id="result-message" class="result-message"></div>
 </main>
+<jsp:include page="/WEB-INF/views/footer.jsp"/>
 </body>
 </html>

@@ -43,4 +43,11 @@
         select count(*) from tbl_notice
     </select>
 
+    <update id="increaseViews">
+        UPDATE tbl_notice
+        SET notice_views = notice_views + 1
+        WHERE notice_no = #{notice_no}
+    </update>
+
+
 </mapper>
