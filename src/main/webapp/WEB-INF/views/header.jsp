@@ -26,7 +26,7 @@
 	            <li class="dropdown-parent"><a href="#">게시판</a>
 	                <ul class="submenu">
 	                    <li><a href="#">이벤트</a></li>
-	                    <li><a href="#">Q&A</a></li>
+	                    <li><a href="<c:url value='/faq'/>">FAQ</a></li>
 	                </ul>
 	            </li>
 	        </ul>

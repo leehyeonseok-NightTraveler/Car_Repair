@@ -115,6 +115,21 @@ figure .pic {
     box-shadow: none !important;
     background: none !important;
 }
+/*faq 페이지에서 footer 아래에 공백있던 문제 해결*/
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+main {
+    
+    flex: 1;
+
+    /* (선택 사항) 콘텐츠 영역에 여백과 너비를 줍니다. */
+    width: 1180px; /* (header/footer와 동일한 너비로 가정) */
+    margin: 0 auto;  /* 가운데 정렬 */
+    padding: 50px 0; /* 위아래 여백 */
+}
 /* 이미지 위에 올라갈 텍스트 컨테이너 (스티커 역할) */
 .main-text {
     position: absolute; /* figure(도화지) 위에 띄움 */
