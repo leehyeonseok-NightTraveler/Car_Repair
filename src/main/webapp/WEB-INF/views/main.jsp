@@ -59,14 +59,14 @@
 
 <jsp:include page="/WEB-INF/views/footer.jsp" />
 
-<script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.bxslider.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.bxslider.js"></script>
 <script>
     $(document).ready(function(){
         // 'slide_gallery' 라는 클래스를 가진 요소를 슬라이드 쇼로 만듭니다.
         $('.slide_gallery').bxSlider({
             auto: true,     // 자동 슬라이드
-            pause: 3000     // 5초마다 넘어감
+            pause: 2000     // 2초마다 넘어감
         });
     });
 </script>
