@@ -88,6 +88,8 @@ th {
 }
 
 /* 입력창 스타일 */
+
+
 .input-title,
 .textarea-content {
     width: 100%;
@@ -106,7 +108,7 @@ th {
 
 .write-label,
 .modify-label {
-    text-align: left;
+    text-align: center;
     font-weight: 500;
     margin-bottom: 6px;
     color: #555;
@@ -140,8 +142,8 @@ th {
 .btn-submit { background-color: #444; color: #fff; }
 .btn-cancel { background-color: #666; color: #fff; }
 .btn-list   { background-color: #888; color: #fff; }
-.btn-modify { background-color: #999; color: #fff; }
-.btn-delete { background-color: #aaa; color: #fff; }
+.btn-modify { background-color: #888; color: #fff; }
+.btn-delete { background-color: #888; color: #fff; }
 
 /* ===== 페이징 ===== */
 .pagination-container {

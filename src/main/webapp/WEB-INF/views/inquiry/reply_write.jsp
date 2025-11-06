@@ -23,50 +23,35 @@
 
     <!-- 제목 영역 -->
     <section id="inquiry-header" class="inquiry-header">
-        <h2 id="inquiry-title" class="inquiry-title">${inquiryView.inquiry_title}</h2>
+        <h2 id="inquiry-title" class="inquiry-title">${reply.inquiry_title}</h2>
         <hr id="inquiry-divider" class="inquiry-divider">
     </section>
 
     <!-- 본문 영역 -->
     <article id="inquiry-body" class="inquiry-body">
         <div id="inquiry-content" class="inquiry-content">
-            ${inquiryView.inquiry_content}
+            ${reply.inquiry_content}
         </div>
         <div id="inquiry-meta" class="inquiry-meta">
-            <span id="inquiry-date" class="inquiry-date">${inquiryView.inquiry_created}</span>
+            <span id="inquiry-date" class="inquiry-date">${reply.inquiry_created}</span>
         </div>
     </article>
 
-    <c:choose>
-        <c:when test="${userInfo.accountRole eq 'ADMIN'}">
-            <form>
-                <section id="inquiry-reply" class="inquiry-reply">
-                    <h3 class="reply-title">관리자 답변</h3>
-                    <div class="reply-content">
-                            ${inquiryView.reply_content}
-                    </div>
-                    <!-- ✅ 관리자 전용 답변 작성 버튼 -->
-                    <div class="reply-button">
-                        <a href="<c:url value='/inquiry/reply_write?inquiry_no=${inquiryView.inquiry_no}'/>" class="btn btn-primary">
-                            답변 작성
-                        </a>
-                    </div>
-                </section>
-            </form>
-        </c:when>
-        <c:when test="${not empty inquiryView.reply_content}">
-            <section id="inquiry-reply" class="inquiry-reply">
-                <h3 class="reply-title">관리자 답변</h3>
-                <div class="reply-content">
-                        ${inquiryView.reply_content}
-                </div>
-            </section>
-        </c:when>
-    </c:choose>
+    <form id="reply-form" class="reply-form" method="post" action="replyProcess">
+        <input type="hidden" name="inquiry_no" value="${reply.inquiry_no}">
 
+        <section id="inquiry-reply" class="inquiry-reply">
+            <h3 class="reply-title">관리자 답변</h3>
+            <div class="reply-content">
+                <textarea id="reply-content" class="reply-content-area" name="reply_content">${reply.reply_content}</textarea>
+            </div>
+        </section>
 
+        <div class="reply-submit">
+            <input type="submit" id="reply-submit-btn" class="btn btn-primary" value="답변">
+        </div>
+    </form>
 </main>
-
 <!-- 공통 푸터 -->
 <jsp:include page="/WEB-INF/views/footer.jsp"/>
 </body>

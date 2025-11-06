@@ -11,17 +11,17 @@
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"/>
 
-<main id="notice-write-container" class="notice-write-container">
-    <form method="post" action="notice/writeProcess" id="notice-write-form" class="notice-write-form">
+<main id="notice-modify-container" class="notice-modify-container">
+    <form method="post" action="modifyProcess" id="notice-modify-form" class="notice-modify-form">
 
         <!-- 작성 테이블 -->
         <table id="notice-write-table" class="notice-write-table">
             <tr>
-                <th class="write-label">제목</th>
+                <th class="modify-label">제목</th>
             </tr>
             <tr>
-                <td class="write-input">
-                    <input type="text" name="notice_title" class="input-title" id="notice-title" placeholder="제목을 입력하세요">
+                <td class="modify-input">
+                    <input type="text" name="notice_title" class="input-title" id="notice-title" value="<c:out value='${modify.notice_title}'/>">
                 </td>
             </tr>
             <tr>
@@ -29,14 +29,17 @@
             </tr>
             <tr>
                 <td class="write-input">
-                    <textarea name="notice_content" class="textarea-content" id="notice-content" placeholder="내용을 입력하세요"></textarea>
+                    <textarea name="notice_content" class="textarea-content" id="notice-content"><c:out value="${modify.notice_content}"/></textarea>
                 </td>
             </tr>
         </table>
 
+        <input type="hidden" name="notice_no" value="${modify.notice_no}">
+        <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
         <!-- 버튼 영역 -->
-        <div id="write-button-group" class="write-button-group">
-            <input type="submit" value="등록" class="btn btn-submit" id="btn-submit">
+        <div id="modify-button-group" class="modify-button-group">
+            <input type="submit" value="수정" class="btn btn-submit" id="btn-submit">
             <input type="button" value="취소" class="btn btn-cancel" id="btn-cancel"
                    onclick="location.href='notice_list'">
         </div>

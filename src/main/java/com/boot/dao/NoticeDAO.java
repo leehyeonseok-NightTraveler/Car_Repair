@@ -1,5 +1,6 @@
 package com.boot.dao;
 
+import com.boot.dto.AccountDTO;
 import com.boot.dto.Criteria;
 import com.boot.dto.NoticeDTO;
 
@@ -9,7 +10,7 @@ import java.util.List;
 public interface NoticeDAO {
 
     // 공지사항 목록 조회 (페이징 포함)
-    List<NoticeDTO> noticeList(Criteria cri);
+    List<NoticeDTO> noticeList(HashMap<String, String> param, Criteria cri);
 
     // 공지사항 상세보기
     NoticeDTO noticeView(HashMap<String, String> param);
@@ -28,4 +29,6 @@ public interface NoticeDAO {
 
     // 조회수 증가
     void increaseViews(HashMap<String, String> param);
+
+    AccountDTO getUserInfo(String accountId);
 }
