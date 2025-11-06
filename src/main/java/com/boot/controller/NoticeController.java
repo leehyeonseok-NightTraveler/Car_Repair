@@ -34,8 +34,10 @@ public class NoticeController {
 
         // 로그인 사용자 정보 조회
         String loginId = (String) session.getAttribute("accountId");
-        AccountDTO userInfo = noticeService.getUserInfo(loginId);
-        model.addAttribute("userInfo", userInfo);
+        if (loginId != null) {
+            AccountDTO userInfo = noticeService.getUserInfo(loginId);
+            model.addAttribute("userInfo", userInfo);
+        }
 
         // 공지사항 목록 및 페이징 처리
         List<NoticeDTO> noticeList = noticeService.noticeList(param, cri);
@@ -53,9 +55,12 @@ public class NoticeController {
     public String noticeView(@RequestParam HashMap<String, String> param, Model model, Criteria cri, HttpSession session) {
         log.info("noticeView()");
 
+        // 로그인 사용자 정보 조회
         String loginId = (String) session.getAttribute("accountId");
-        AccountDTO userInfo = noticeService.getUserInfo(loginId);
-        model.addAttribute("userInfo", userInfo);
+        if (loginId != null) {
+            AccountDTO userInfo = noticeService.getUserInfo(loginId);
+            model.addAttribute("userInfo", userInfo);
+        }
 
         // 조회수 증가
         noticeService.increaseViews(param);
