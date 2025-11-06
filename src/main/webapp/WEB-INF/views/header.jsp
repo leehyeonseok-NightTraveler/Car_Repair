@@ -32,7 +32,7 @@
 
 	        <ul class="util">
 	        <c:choose>
-	          <c:when test="${sessionScope.role == 'ADMIN' || sessionScope.role == 'USER'}">
+	          <c:when test="${sessionScope.ROLE == 'ADMIN' || sessionScope.ROLE == 'USER'}">
 	            <li><a href="<c:url value='/mypage_userinfo'/>">마이페이지</a></li>
 	            <li><a href="<c:url value='/logout'/>">로그아웃</a></li>
 	          </c:when>
