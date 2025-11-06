@@ -12,7 +12,7 @@
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"/>
 <main id="notice-write-container" class="notice-write-container">
-    <form method="post" action="writeProcess" id="notice-write-form" class="notice-write-form">
+    <form method="post" action="notice/writeProcess" id="notice-write-form" class="notice-write-form">
         <table id="notice-write-table" class="notice-write-table">
             <tr>
                 <th class="write-label">제목</th>

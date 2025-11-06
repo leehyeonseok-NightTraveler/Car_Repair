@@ -35,7 +35,7 @@
     display: flex;
     justify-content: center;
     margin-bottom: 30px; /* 테이블과 간격 */
-    
+
     /* 검색창을 하나의 캡슐 형태로 감싸기 */
     border: 1px solid #ccc;
     border-radius: 25px; /* 둥근 모서리 */
@@ -145,9 +145,9 @@
 .div_page .paginate_button.active a {
     color: #333; /* 포인트 컬러 (빨간색 계열) */
     font-weight: bold; /* 굵게 */
-    
+
     /* * 배경색을 원하시면 이 부분을 활성화하세요
-     * background-color: #f0f0f0; 
+     * background-color: #f0f0f0;
      */
 }
 /* 상세 보기 전체 컨테이너 */
@@ -195,12 +195,12 @@
     color: #555;
     line-height: 1.8; /* 줄 간격 */
     border-bottom: 2px solid #555;
-    
+
     /* DB에 저장된 줄바꿈(엔터)을 그대로 보이게 함 */
-    white-space: pre-wrap; 
-    
+    white-space: pre-wrap;
+
     /* 내용이 길어질 경우 최소 높이 보장 */
-    min-height: 200px; 
+    min-height: 200px;
 }
 
 /* 버튼 영역 (목록으로) */

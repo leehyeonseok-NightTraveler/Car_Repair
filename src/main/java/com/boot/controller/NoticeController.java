@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,92 +24,99 @@ public class NoticeController {
     @Autowired
     private NoticeService service;
 
-    // 공지사항 목록 조회
     @RequestMapping("/notice_list")
     public String notice_list(Criteria cri, Model model) {
         log.info("notice_list()");
-
         List<NoticeDTO> noticeList = service.noticeList(cri);
         int total = service.getTotalCount();
 
         model.addAttribute("list", noticeList);
         model.addAttribute("pageMaker", new PagingDTO(total, cri));
-
         return "notice/notice_list";
     }
 
-    // 공지사항 상세보기
     @RequestMapping("/notice_view")
     public String notice_view(@RequestParam HashMap<String, String> param,
                               Model model, Criteria cri) {
         log.info("notice_view()");
-
         service.increaseViews(param);
-
         NoticeDTO noticeView = service.noticeView(param);
         int total = service.getTotalCount();
 
         model.addAttribute("view", noticeView);
         model.addAttribute("pageMaker", new PagingDTO(total, cri));
-
         return "notice/notice_view";
     }
 
-    // 공지사항 작성 페이지 이동
     @RequestMapping("/notice_write")
-    public String notice_write() {
+    public String notice_write(HttpSession session) {
         log.info("notice_write()");
+        String accountRole = (String) session.getAttribute("account_role");
+        if (!"admin".equals(accountRole)) {
+            return "redirect:/login";
+        }
         return "notice/notice_write";
     }
 
-    // 공지사항 작성 처리
     @RequestMapping("/writeProcess")
-    public String writeProcess(@RequestParam HashMap<String, String> param) {
+    public String writeProcess(@RequestParam HashMap<String, String> param, HttpSession session) {
         log.info("writeProcess()");
+        String loginId = (String) session.getAttribute("login_id");
+        String accountRole = (String) session.getAttribute("account_role");
+
+        if (loginId == null || !"admin".equals(accountRole)) {
+            return "redirect:/login";
+        }
+
+        param.put("notice_writer", loginId);
         service.writeProcess(param);
-        return "redirect:notice_list";
+        return "redirect:/notice/notice_list"; // ✅ 절대 경로로 변경
     }
 
-    // 공지사항 수정 페이지 이동
     @RequestMapping("/notice_modify")
     public String notice_modify(@RequestParam HashMap<String, String> param,
-                                Model model, Criteria cri) {
+                                Model model, Criteria cri, HttpSession session) {
         log.info("notice_modify()");
+        String accountRole = (String) session.getAttribute("account_role");
+        if (!"admin".equals(accountRole)) {
+            return "redirect:/notice/notice_list"; // ✅ 절대 경로 유지
+        }
 
         NoticeDTO noticeModify = service.noticeView(param);
         int total = service.getTotalCount();
 
         model.addAttribute("modify", noticeModify);
         model.addAttribute("pageMaker", new PagingDTO(total, cri));
-
         return "notice/notice_modify";
     }
 
-    // 공지사항 수정 처리
     @RequestMapping("/modifyProcess")
     public String modify(@RequestParam HashMap<String, String> param,
-                         RedirectAttributes attr) {
+                         RedirectAttributes attr, HttpSession session) {
         log.info("modifyProcess()");
+        String accountRole = (String) session.getAttribute("account_role");
+        if (!"admin".equals(accountRole)) {
+            return "redirect:/notice/notice_list"; // ✅ 절대 경로로 변경
+        }
 
         service.modifyProcess(param);
-
         attr.addAttribute("pageNum", param.get("pageNum"));
         attr.addAttribute("amount", param.get("amount"));
-
-        return "redirect:notice_list";
+        return "redirect:/notice/notice_list"; // ✅ 절대 경로로 변경
     }
 
-    // 공지사항 삭제 처리
     @RequestMapping("/deleteProcess")
     public String deleteProcess(@RequestParam HashMap<String, String> param,
-                                RedirectAttributes attr) {
+                                RedirectAttributes attr, HttpSession session) {
         log.info("deleteProcess()");
+        String accountRole = (String) session.getAttribute("account_role");
+        if (!"admin".equals(accountRole)) {
+            return "redirect:/notice/notice_list"; // ✅ 절대 경로로 변경
+        }
 
         service.deleteProcess(param);
-
         attr.addAttribute("pageNum", param.get("pageNum"));
         attr.addAttribute("amount", param.get("amount"));
-
-        return "redirect:notice_list";
+        return "redirect:/notice/notice_list"; // ✅ 절대 경로로 변경
     }
 }
