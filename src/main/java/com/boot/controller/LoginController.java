@@ -109,7 +109,8 @@ public class LoginController {
                 }
                 
                 if ("USER".equals(role)) {
-                    session.setAttribute("ROLE", "USER");//로그인 성공 시 유저 세션추가                     
+                    session.setAttribute("ROLE", "USER");//로그인 성공 시 유저 세션추가      
+                    session.setAttribute("accountId", accountId);
                                            
                     session.removeAttribute("loginFailCount");
                     session.removeAttribute("lockTime");
@@ -117,6 +118,7 @@ public class LoginController {
                     return "redirect:/main";
                 } else if ("ADMIN".equals(role)) {
                     session.setAttribute("ROLE", "ADMIN");//로그인 성공 시 관리자 세션 추가
+                    session.setAttribute("accountId", accountId);
                     
                     session.removeAttribute("loginFailCount");
                     session.removeAttribute("lockTime");
