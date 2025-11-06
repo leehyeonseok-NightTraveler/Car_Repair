@@ -11,7 +11,7 @@ import com.boot.dto.Criteria;
 public interface PageDAO {
 	public ArrayList<FaQDTO> listWithPaging(Criteria cri);
 	public int getTotalCount(Criteria cri);
-	public FaQDTO getFaqDetail(int faq_no);
+	
 }
 
 

@@ -9,7 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FaQDTO {
-	private int FAQ_No;
-	private String FAQ_Title;
-	private String FAQ_Content;
+	private int faqNo;
+	private String faqTitle;
+	private String faqContent;
+	private String faqWriter;
+	private String faqCreated;
+	private String faqHit;
 }
