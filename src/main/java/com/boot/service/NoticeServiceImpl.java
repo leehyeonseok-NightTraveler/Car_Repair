@@ -1,6 +1,7 @@
 package com.boot.service;
 
 import com.boot.dao.NoticeDAO;
+import com.boot.dto.AccountDTO;
 import com.boot.dto.Criteria;
 import com.boot.dto.NoticeDTO;
 import org.apache.ibatis.session.SqlSession;
@@ -17,9 +18,9 @@ public class NoticeServiceImpl implements NoticeService {
     private SqlSession sqlSession;
 
     @Override
-    public List<NoticeDTO> noticeList(Criteria cri) {
+    public List<NoticeDTO> noticeList(HashMap<String, String> param, Criteria cri) {
         NoticeDAO dao = sqlSession.getMapper(NoticeDAO.class);
-        return dao.noticeList(cri);
+        return dao.noticeList(param, cri);
     }
 
     @Override
@@ -53,8 +54,14 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public void increasViews(HashMap<String, String> param) {
+    public void increaseViews(HashMap<String, String> param) {
         NoticeDAO dao = sqlSession.getMapper(NoticeDAO.class);
         dao.increaseViews(param);
+    }
+
+    @Override
+    public AccountDTO getUserInfo(String accountId) {
+        NoticeDAO dao = sqlSession.getMapper(NoticeDAO.class);
+        return dao.getUserInfo(accountId);
     }
 }

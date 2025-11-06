@@ -1,0 +1,43 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.dao.InquiryDAO">
+    <insert id="writeProcess">
+        INSERT INTO tbl_inquiry (inquiry_no, customer_id, customer_name, customer_phone, customer_email, inquiry_title, inquiry_content)
+        VALUES(SEQ_INQUIRY_NO.NEXTVAL,  #{customer_id} ,#{customer_name}, #{customer_phone}, #{customer_email}, #{inquiry_title}, #{inquiry_content})
+    </insert>
+
+    <select id="inquiryList" resultType="com.boot.dto.InquiryDTO">
+        SELECT *
+        FROM tbl_inquiry
+        WHERE customer_id = #{customer_id, jdbcType=VARCHAR}
+        ORDER BY inquiry_no DESC
+    </select>
+
+    <select id="inquiryView" resultType="com.boot.dto.InquiryDTO">
+        SELECT *
+        FROM tbl_inquiry
+        WHERE inquiry_no = #{inquiry_no}
+    </select>
+
+    <!-- 회원 정보 조회 -->
+    <select id="getUserInfo" parameterType="string" resultType="com.boot.dto.AccountDTO">
+        SELECT user_name AS userName,
+        account_id AS accountId,
+        email,
+        phone_number AS phoneNumber,
+        account_role AS accountRole,
+        reg_date AS regDate
+        FROM tbl_account
+        WHERE account_id = #{accountId}
+    </select>
+
+    <update id="replyProcess">
+        UPDATE tbl_inquiry
+        SET reply_content = #{reply_content},
+        reply_created = SYSDATE,
+        inquiry_status = '답변완료'
+        WHERE inquiry_no = #{inquiry_no, jdbcType=INTEGER}
+    </update>
+
+</mapper>

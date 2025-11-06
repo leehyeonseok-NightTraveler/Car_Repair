@@ -13,11 +13,12 @@
                 FROM tbl_notice
                 ORDER BY notice_no DESC
             ) inner_query
-            WHERE rownum <= #{pageNum} * #{amount}
+            WHERE rownum <= #{cri.pageNum} * #{cri.amount}
         )
-        WHERE rn > (#{pageNum} - 1) * #{amount}
+        WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount}
         ]]>
     </select>
+
 
     <select id="noticeView">
         SELECT *
@@ -49,5 +50,16 @@
         WHERE notice_no = #{notice_no}
     </update>
 
+    <!-- 회원 정보 조회 -->
+    <select id="getUserInfo" parameterType="string" resultType="com.boot.dto.AccountDTO">
+        SELECT user_name AS userName,
+        account_id AS accountId,
+        email,
+        phone_number AS phoneNumber,
+        account_role AS accountRole,
+        reg_date AS regDate
+        FROM tbl_account
+        WHERE account_id = #{accountId}
+    </select>
 
 </mapper>

@@ -1,0 +1,58 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
+<head>
+    <title>문의 내역</title>
+    <script src="<c:out value='${pageContext.request.contextPath}/js/jquery.js'/>"></script>
+    <script src="<c:out value='${pageContext.request.contextPath}/js/inquiry.js'/>"></script>
+    <link rel="stylesheet" href="<c:out value='${pageContext.request.contextPath}/css/mainpage.css'/>">
+    <link rel="stylesheet" href="<c:out value='${pageContext.request.contextPath}/css/inquiry.css'/>">
+</head>
+<body>
+<!-- 공통 헤더 -->
+<jsp:include page="/WEB-INF/views/header.jsp"/>
+
+<main id="inquiry-view-container" class="inquiry-view-container">
+    <!-- 왼쪽 플로팅 메뉴 -->
+    <div id="floating-wrapper" class="floating-wrapper">
+        <div id="floating-menu" class="floating-menu">
+            <a id="write-link" class="floating-link" href="<c:url value='/inquiry/inquiry_write'/>">1:1 문의</a>
+            <a id="history-link" class="floating-link" href="<c:url value='/inquiry/inquiry_history'/>">문의 내역</a>
+        </div>
+    </div>
+
+    <!-- 제목 영역 -->
+    <section id="inquiry-header" class="inquiry-header">
+        <h2 id="inquiry-title" class="inquiry-title">${reply.inquiry_title}</h2>
+        <hr id="inquiry-divider" class="inquiry-divider">
+    </section>
+
+    <!-- 본문 영역 -->
+    <article id="inquiry-body" class="inquiry-body">
+        <div id="inquiry-content" class="inquiry-content">
+            ${reply.inquiry_content}
+        </div>
+        <div id="inquiry-meta" class="inquiry-meta">
+            <span id="inquiry-date" class="inquiry-date">${reply.inquiry_created}</span>
+        </div>
+    </article>
+
+    <form id="reply-form" class="reply-form" method="post" action="replyProcess">
+        <input type="hidden" name="inquiry_no" value="${reply.inquiry_no}">
+
+        <section id="inquiry-reply" class="inquiry-reply">
+            <h3 class="reply-title">관리자 답변</h3>
+            <div class="reply-content">
+                <textarea id="reply-content" class="reply-content-area" name="reply_content">${reply.reply_content}</textarea>
+            </div>
+        </section>
+
+        <div class="reply-submit">
+            <input type="submit" id="reply-submit-btn" class="btn btn-primary" value="답변">
+        </div>
+    </form>
+</main>
+<!-- 공통 푸터 -->
+<jsp:include page="/WEB-INF/views/footer.jsp"/>
+</body>
+</html>
