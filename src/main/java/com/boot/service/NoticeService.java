@@ -8,12 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface NoticeService {
-    public List<NoticeDTO> noticeList(HashMap<String, String> param, Criteria cri);
+    List<NoticeDTO> noticeList(HashMap<String, String> param, Criteria cri);
     NoticeDTO noticeView(HashMap<String, String> param);
     void writeProcess(HashMap<String, String> param);
     void modifyProcess(HashMap<String, String> param);
     void deleteProcess(HashMap<String, String> param);
     void increaseViews(HashMap<String, String> param);
-    public int getTotalCount();
+    int getTotalCount();
     AccountDTO getUserInfo(String accountId);
 }
