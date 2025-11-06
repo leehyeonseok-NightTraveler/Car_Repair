@@ -32,31 +32,38 @@
          <td>번호</td>
          <td>자주 묻는 질문</td>
          <td>답변</td>
+         <td>작성일</td>
+         <td>조회수</td>
       </tr>
       <c:forEach var="dto" items="${list}">
          <tr>
-            <td>${dto.FAQ_No}</td>
+            <td>${dto.faqNo}</td>
             <td>
-<!--               <a class="move_link" href="${dto.FAQ_Title}">${dto.FAQ_Title}</a>-->
-			   <a href="faq_view?faq_no=${dto.FAQ_No}">${dto.FAQ_Title}</a>
+			   <a href="faq_view?faq_no=${dto.faqNo}">${dto.faqTitle}</a>
             </td>
-            <td>${dto.FAQ_Content}</td>
+            <td>${dto.faqContent}</td>
+            <td>${dto.faqCreated}</td>
+            <td>${dto.faqHit}</td>
          </tr>
       </c:forEach>
    
    </table>
-
-   <form action="get" id="searchForm">
-      <select name="type">
-         <option value=""  <c:out value="${pageMaker.cri.type == null?'selected':' '}"/>>--</option>
-         <option value="T"  <c:out value="${pageMaker.cri.type eq 'T'?'selected':''}"/>>자주 묻는 질문</option>
-         <option value="C"  <c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>답변</option>
-         <option value="TC"  <c:out value="${pageMaker.cri.type eq 'TC'?'selected':''}"/>>자주 묻는 질문 or 답변</option>
-      </select>
-      <input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
-	  <button>Search</button>
-   </form>
-   
+   <div class="faq-controls-group">
+           
+           <form action="faq" method="get" id="searchForm"> 
+               <select name="type">
+                  <option value=""  <c:out value="${pageMaker.cri.type == null?'selected':' '}"/>>--</option>
+                  <option value="T"  <c:out value="${pageMaker.cri.type eq 'T'?'selected':''}"/>>자주 묻는 질문</option>
+                  <option value="C"  <c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>답변</option>
+                  <option value="TC"  <c:out value="${pageMaker.cri.type eq 'TC'?'selected':''}"/>>자주 묻는 질문 or 답변</option>
+               </select>
+               <input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
+               
+       	    <button type="button" id="searchBtn">검색</button>
+           <button type="button" id="writeBtn" class="btn-write">글쓰기</button>
+           </form>
+           
+      </div>
    
    <div class="div_page">
          <ul>
@@ -93,51 +100,42 @@
 </html>
 <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
 <script>
-   var actionForm = $("#actionForm");
-
-   // 페이지번호 처리
+   var actionForm = $("#actionForm"); // 페이지 이동용 숨겨진 폼
+   var searchForm = $("#searchForm"); // 검색용 폼
+   
+   // 1. 페이지번호 처리 (변경 없음)
    $(".paginate_button a").on("click", function (e) {
       e.preventDefault();
-      console.log("click~!!!");
-      console.log("@# href=>"+$(this).attr("href"));
-
       actionForm.find("input[name='pageNum']").val($(this).attr('href'));
       actionForm.attr("action","faq").submit();
-   });//end of paginate_button click
+   });
 
-   // 게시글 처리
-   $(".move_link").on("click", function (e) {
-      e.preventDefault();
-      console.log("move_link click~!!!");
-      console.log("@# href=>"+$(this).attr("href"));
-
-      var targetBno = $(this).attr("href");
-
-      var bno = actionForm.find("input[name='boardNo']").val();
-      if (bno != "") {
-         actionForm.find("input[name='boardNo']").remove();
-      }
-
-      actionForm.append("<input type='hidden' name='boardNo' value='"+targetBno+"'>");
-      actionForm.attr("action","content_view").submit();
-   });//end of paginate_button click
-   
-   var searchForm = $("#searchForm");
-   
-   $("#searchForm button").on("click", function (){
-		
-		if(searchForm.find("option:selected").val() != "" && searchForm.find("input[name='keyword']").val() == "" ){
+   // 2. Search 버튼 처리 (HTML에서 #searchBtn ID를 부여했다고 가정)
+   $("#searchBtn").on("click", function (e){
+        e.preventDefault(); // 기본 폼 전송 막기
+        
+        var type = searchForm.find("option:selected").val();
+        var keyword = searchForm.find("input[name='keyword']").val();
+        
+		if(type != "" && keyword == "" ){
 			alert("키워드를 입력하세요.");
 			return false;
 		}
 	
-		searchForm.attr("action", "faq").submit();
+		searchForm.submit(); // searchForm을 action="faq"로 전송
    });
    
+   // 3. 글쓰기 버튼 처리 (HTML에서 #writeBtn ID를 부여했다고 가정)
+   $("#writeBtn").on("click", function(e){
+      e.preventDefault();
+      // 'faq_write' 컨트롤러 주소로 이동
+      location.href = "faq_write"; 
+   });
+   
+   // 4. Select 박스 변경
    $("#searchForm select").on("change", function (){
 		if(searchForm.find("option:selected").val() == ""){
 			searchForm.find("input[name='keyword']").val("");
 		}
-	
    });
 </script>
