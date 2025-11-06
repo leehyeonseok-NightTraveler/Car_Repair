@@ -147,5 +147,11 @@ public class LoginController {
         }//end) 로그인 정보 존재 시
         
     }
-    
+ // 로그아웃
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        log.info("로그아웃 완료");
+        return "redirect:/login";
+    }
 }
