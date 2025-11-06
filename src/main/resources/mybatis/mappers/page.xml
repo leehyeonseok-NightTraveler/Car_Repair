@@ -17,42 +17,29 @@
       </if>
 		
 	</sql>
-
-    <select id="listWithPaging" resultType="com.boot.dto.FaQDTO">
+<select id="listWithPaging" resultType="com.boot.dto.FaQDTO">
     	<![CDATA[
-		 SELECT FAQ_NO, FAQ_TITLE, FAQ_CONTENT
-		FROM (
-		    SELECT a.*, ROWNUM AS rnum
-		    FROM (
-		        SELECT FAQ_NO, FAQ_TITLE, FAQ_CONTENT
-		        FROM TBL_FAQ
-		]]>
-		<include refid="criteria"></include>
-		<![CDATA[
-		        ORDER BY FAQ_NO DESC
-		    ) a
-		    WHERE ROWNUM <= (#{pageNum} * #{amount})
-		)
-		WHERE rnum > (#{pageNum}-1) * #{amount}
-		]]>
-    </select>
-    
-    
-    <select id="getFaqDetail" resultType="com.boot.dto.FaQDTO" parameterType="int">
-        SELECT 
-            FAQ_NO, 
-            FAQ_TITLE, 
-            FAQ_CONTENT 
-        FROM 
-            TBL_FAQ 
-        WHERE 
-            FAQ_NO = #{faq_no}
-    </select>
-    
+		SELECT 
+            FAQ_NO AS faqNo, FAQ_TITLE AS faqTitle, FAQ_CONTENT AS faqContent,
+            FAQ_CREATED AS faqCreated, FAQ_HIT AS faqHit 
+        FROM (
+            SELECT 
+                FAQ_NO, FAQ_TITLE, FAQ_CONTENT, FAQ_CREATED, FAQ_HIT, 
+                ROW_NUMBER() OVER (ORDER BY FAQ_NO DESC) AS rnum
+            FROM TBL_FAQ
+        ]]>
+        <include refid="criteria"></include>
+        <![CDATA[
+        )
+        WHERE rnum BETWEEN ((#{pageNum}-1) * #{amount} + 1) 
+                       AND (#{pageNum} * #{amount})
+        ]]>
+</select>
     <select id="getTotalCount" resultType="int">
 		select count(*) from TBL_FAQ
 		<include refid="criteria"></include>	  
     </select>
+    
 
 </mapper>
 

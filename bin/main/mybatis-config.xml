@@ -7,6 +7,7 @@
 		<mapper resource="mybatis/mappers/accountMapper.xml"/>
 		<mapper resource="mybatis/mappers/storeMapper.xml"/>
 		<mapper resource="mybatis/mappers/page.xml"/>
-        <mapper resource="mybatis/mappers/notice.xml"/>
+    	<mapper resource="mybatis/mappers/faq.xml"/>
+    	<mapper resource="mybatis/mappers/notice.xml"/>
 	</mappers>
 </configuration>

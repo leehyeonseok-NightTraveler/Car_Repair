@@ -23,7 +23,7 @@ public interface NoticeDAO {
     // 공지사항 삭제
     void deleteProcess(HashMap<String, String> param);
 
-    // 전체 게시글 수 조회 (페이징용)
+    // 전체 게시글 hi수 조회 (페이징용)
     int getTotalCount();
 
     // 조회수 증가
