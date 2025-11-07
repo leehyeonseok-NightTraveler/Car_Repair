@@ -195,8 +195,9 @@
   outline: none;
   background-color: transparent;
   margin-bottom: 10px;
-  left: 20px;
   color: #333;
+  left: 35px;
+  font-size: 15px;
 }
 .btn:hover{
   cursor: pointer;
