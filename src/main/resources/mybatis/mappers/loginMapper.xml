@@ -5,9 +5,10 @@
 <mapper namespace="com.boot.dao.LoginDAO">
 
 	<select id="loginYn" resultType="com.boot.dto.LoginDTO">
-		select account_id, password, account_role AS accountRole
-	    from tbl_account 
-	    where account_id = #{accountId}
-	</select>	
+    SELECT account_id, password, account_role AS accountRole, account_status AS accountStatus
+    FROM tbl_account 
+    WHERE account_id = #{accountId}
+</select>
+
 
 </mapper>

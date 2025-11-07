@@ -1,0 +1,66 @@
+/* ===== adminenter.css ===== */
+
+/* 전체 컨테이너 */
+.admin-container {
+  width: 400px;
+  margin: 100px auto;
+  padding: 40px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  background: #fff;
+  text-align: center;
+}
+
+/* 제목 */
+.admin-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 22px;
+}
+
+/* 입력 필드 */
+.admin-container input[type="password"] {
+  width: 80%;
+  padding: 10px;
+  margin: 10px 0 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border 0.2s ease;
+}
+
+.admin-container input[type="password"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* 버튼 */
+.admin-container button {
+  padding: 10px 25px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.admin-container button:hover {
+  background-color: #0056b3;
+}
+
+/* 메시지 */
+.alert-msg {
+  color: red;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* 반응형 */
+@media (max-width: 480px) {
+  .admin-container {
+    width: 90%;
+    padding: 25px;
+  }
+}
