@@ -119,7 +119,7 @@
     </update>
 
     <select id="selectByAccountId" parameterType="string" resultType="com.boot.dto.InquiryDTO">
-	  SELECT inquiry_no, inquiry_title, inquiry_status, inquiry_created
+	  SELECT inquiry_no, inquiry_title, inquiry_status, TO_CHAR(inquiry_created, 'YYYY"년" MM"월" DD"일" HH24"시"MI"분"') AS inquiry_created
 	  FROM tbl_inquiry
 	  WHERE customer_id = #{accountId}
 	  ORDER BY inquiry_no DESC
