@@ -52,30 +52,43 @@
   color: #333;
 }
 
+/* ===== 버튼 영역 개선 ===== */
 .edit-buttons {
   display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
+  justify-content: center; /* 중앙 정렬 */
+  gap: 20px; /* 버튼 간격 */
+  margin-top: 40px;
 }
 
+.btn-normal {
+  padding: 14px 36px; /* 크기 키움 */
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* 취소 버튼 */
 .btn-cancel {
-  background-color: #f8f9fa;
+  background-color: #f1f3f5;
   color: #333;
   border: 1px solid #ccc;
 }
-
 .btn-cancel:hover {
-  background-color: #e9ecef;
+  background-color: #dee2e6;
 }
 
+/* 저장 버튼 */
 .btn-save {
   background-color: #007bff;
   color: #fff;
   border: none;
+  box-shadow: 0 3px 6px rgba(0,123,255,0.25);
 }
-
 .btn-save:hover {
   background-color: #0056b3;
+  transform: translateY(-1px);
 }
 
 /* ===== 반응형 구간 시작 ===== */
@@ -103,14 +116,16 @@
     padding: 10px 12px;
   }
 
+  /* 모바일에서는 버튼을 세로로 */
   .edit-buttons {
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
   }
 
   .btn-normal {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
+    font-size: 15px;
   }
 }
 
@@ -135,6 +150,6 @@
 
   .btn-normal {
     font-size: 14px;
-    padding: 10px;
+    padding: 12px;
   }
 }

@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-		
+
 	<div class="floating-icons">
 	    <a href="https://www.instagram.com/khieiorkr/" target="_blank" class="icon-instagram">
 	        <img src="https://img.icons8.com/fluent/48/000000/instagram-new.png" alt="인스타그램"/>
@@ -40,17 +40,30 @@
 	        		</ul>
 			</ul>
 
+			
 	        <ul class="util">
-	        <c:choose>
-	          <c:when test="${sessionScope.ROLE == 'ADMIN' || sessionScope.ROLE == 'USER'}">
-	            <li><a href="<c:url value='/mypage_userinfo'/>">마이페이지</a></li>
-	            <li><a href="<c:url value='/logout'/>">로그아웃</a></li>
-	          </c:when>
-	          <c:otherwise>
-	            <li><a href="<c:url value='/login'/>">로그인</a></li>
-	            <li><a href="<c:url value='/register'/>">회원가입</a></li>
-	          </c:otherwise>
-	        </c:choose>
+				<c:choose>
+				  <c:when test="${sessionScope.ROLE eq 'USER'}">
+				    <li><a href="<c:url value='/mypage_user'/>">마이페이지</a></li>
+				    <li><a href="<c:url value='/logout'/>">로그아웃</a></li>
+				  </c:when>
+
+				  <c:when test="${sessionScope.ROLE eq 'STORE'}">
+				    <li><a href="<c:url value='/mypage_store'/>">업체 마이페이지</a></li>
+				    <li><a href="<c:url value='/logout'/>">로그아웃</a></li>
+				  </c:when>
+
+				  <c:when test="${sessionScope.ROLE eq 'ADMIN'}">
+				    <li><a href="<c:url value='/mypage_admin'/>">관리자 페이지</a></li>
+				    <li><a href="<c:url value='/logout'/>">로그아웃</a></li>
+				  </c:when>
+
+				  <c:otherwise>
+				    <li><a href="<c:url value='/login'/>">로그인</a></li>
+				    <li><a href="<c:url value='/register'/>">회원가입</a></li>
+				  </c:otherwise>
+				</c:choose>
+
 	      </ul>
 	    </div>
 	</header>

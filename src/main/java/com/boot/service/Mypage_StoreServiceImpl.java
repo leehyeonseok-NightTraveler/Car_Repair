@@ -2,13 +2,9 @@ package com.boot.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.boot.dao.Mypage_StoreDAO;
 import com.boot.dto.StoreDTO;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Service
 public class Mypage_StoreServiceImpl implements Mypage_StoreService {
 
@@ -21,7 +17,17 @@ public class Mypage_StoreServiceImpl implements Mypage_StoreService {
     }
 
     @Override
-    public int updateStoreInfo(StoreDTO store) {
-        return dao.updateStoreInfo(store);
+    public int updateStoreInfo(StoreDTO dto) {
+        return dao.updateStoreInfo(dto);
+    }
+
+    @Override
+    public boolean updatePassword(String storeId, String currentPw, String newPw) {
+        String dbPw = dao.getPasswordById(storeId);
+        if (dbPw != null && dbPw.equals(currentPw)) {
+            dao.updatePassword(storeId, newPw);
+            return true;
+        }
+        return false;
     }
 }

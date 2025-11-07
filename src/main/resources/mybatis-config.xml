@@ -16,3 +16,4 @@
         <mapper resource="mybatis/mappers/mypage_UserMapper.xml"/>
 	</mappers>
 </configuration>
+</configuration>
