@@ -36,18 +36,18 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2">
+				<td colspan="3">
 					<input class="mem" type="text" name="storeId" placeholder="아이디를 입력하세요"
 						value="${cookie.storeSavedId.value != null ? cookie.storeSavedId.value : ''}">
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2">
+				<td colspan="3">
 					<input class="mem" type="password" name="password" placeholder="비밀번호를 입력하세요">
 				</td>
 			</tr>					
 			<tr>
-				<td colspan="2">
+				<td colspan="3">
 				    <label class="fake-check">
 				        <input type="checkbox" id="ol_check" name="saveId"
 				               <c:if test="${not empty cookie.storeSavedId.value}">checked</c:if>>
@@ -58,7 +58,7 @@
 			</tr>
 			<tr>
 				<tr>
-					<td colspan="2" class="td1">
+					<td colspan="3" class="td1">
 						<c:choose>
 						<c:when test="${not empty loginFailMsg}">
 							<div class="lockTime">${loginFailMsg}</div>
@@ -71,17 +71,18 @@
 				</tr>
 			</tr>
 			<tr>
-				<td colspan="2" class="login_btn">
+				<td colspan="3" class="login_btn">
 					<input type="submit" value="로그인" id="login2">
 				</td>
 			</tr>				
 			<tr>
-				<td>
-					<input type="button" class="btn" onclick="location.href='findAccount'" value="아이디/비밀번호 찾기">
-				</td>
-				<td>
-					<input type="button" class="btn" onclick="location.href='register'" value="회원가입">
-				</td>
+                    <td class="btn3" colspan="3">
+                        <a href="findAccount" class="link">아이디 찾기</a>
+                        &nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;
+                        <a href="findPW" class="link">비밀번호 찾기</a>
+                        &nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;
+                        <a href="register" class="link">회원가입</a>
+                    </td>
 			</tr>
 
 			<caption>

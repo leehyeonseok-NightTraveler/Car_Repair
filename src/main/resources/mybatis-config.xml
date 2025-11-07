@@ -14,5 +14,6 @@
         <mapper resource="mybatis/mappers/inquiry.xml"/>
         <mapper resource="mybatis/mappers/mypage_StoreMapper.xml"/>
         <mapper resource="mybatis/mappers/mypage_UserMapper.xml"/>
+        <mapper resource="mybatis/mappers/findAccount.xml"/>
 	</mappers>
 </configuration>

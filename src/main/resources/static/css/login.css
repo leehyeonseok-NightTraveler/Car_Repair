@@ -240,3 +240,12 @@ main {
 	bottom: 70px;
 	font-size: 17px;
 }
+
+.btn3{
+	position: relative;
+	bottom: 8px;
+	
+}
+.link{
+	color: #444;
+}
