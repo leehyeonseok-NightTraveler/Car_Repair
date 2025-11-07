@@ -230,12 +230,12 @@ body {
 }
 
 /* 상태 컬러 */
-.status-cell.처리중 {
+.status-cell.답변대기 {
     color: #d17b00;
     font-weight: bold;
 }
 
-.status-cell.완료 {
+.status-cell.답변완료 {
     color: #2a9d8f;
     font-weight: bold;
 }

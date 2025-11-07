@@ -52,21 +52,37 @@
     </article>
 
     <c:choose>
+        <%-- 관리자일 경우 --%>
         <c:when test="${userInfo.accountRole eq 'ADMIN'}">
             <form>
                 <section id="inquiry-reply" class="inquiry-reply">
                     <h3 class="reply-title">관리자 답변</h3>
-                    <div class="reply-content"> <c:out value="${inquiryView.inquiry_title}"/>
+                    <div class="reply-content">
+                        <c:out value="${inquiryView.reply_content}"/>
                     </div>
-                    <!-- ✅ 관리자 전용 답변 작성 버튼 -->
+
+                        <%-- 답변 상태에 따라 버튼 변경 --%>
                     <div class="reply-button">
-                        <a href="<c:url value='/inquiry/reply_write?inquiry_no=${inquiryView.inquiry_no}'/>" class="btn btn-primary">
-                            답변 작성
-                        </a>
+                        <c:choose>
+                            <c:when test="${not empty inquiryView.reply_content}">
+                                <a href="<c:url value='/inquiry/reply_write?inquiry_no=${inquiryView.inquiry_no}'/>"
+                                   class="btn btn-primary">
+                                    답변 수정
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="<c:url value='/inquiry/reply_write?inquiry_no=${inquiryView.inquiry_no}'/>"
+                                   class="btn btn-primary">
+                                    답변 작성
+                                </a>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </section>
             </form>
         </c:when>
+
+        <%-- 일반 사용자일 경우 --%>
         <c:when test="${not empty inquiryView.reply_content}">
             <section id="inquiry-reply" class="inquiry-reply">
                 <h3 class="reply-title">관리자 답변</h3>

@@ -63,8 +63,16 @@
         </section>
 
         <div class="reply-submit">
-            <input type="submit" id="reply-submit-btn" class="btn btn-primary" value="답변">
+            <c:choose>
+                <c:when test="${not empty reply.reply_content}">
+                    <input type="submit" id="reply-submit-btn" class="btn btn-primary" value="수정">
+                </c:when>
+                <c:otherwise>
+                    <input type="submit" id="reply-submit-btn" class="btn btn-primary" value="답변">
+                </c:otherwise>
+            </c:choose>
         </div>
+
     </form>
 </main>
 <!-- 공통 푸터 -->

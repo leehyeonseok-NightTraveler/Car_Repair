@@ -23,7 +23,11 @@
         FROM (
             SELECT rownum AS rn, inner_query.*
             FROM (
-                SELECT inquiry_no, inquiry_title, inquiry_created, inquiry_status
+                SELECT
+                    inquiry_no,
+                    inquiry_title,
+                    TO_CHAR(inquiry_created, 'YYYY"년" MM"월" DD"일" HH24"시"MI"분"') AS inquiry_created,
+                    inquiry_status
                 FROM tbl_inquiry
                 WHERE customer_id = #{param.customer_id}
                 ORDER BY inquiry_no DESC
@@ -41,7 +45,12 @@
         FROM (
             SELECT rownum AS rn, inner_query.*
             FROM (
-                SELECT inquiry_no, inquiry_title, customer_id, inquiry_created, inquiry_status
+                SELECT
+                    inquiry_no,
+                    inquiry_title,
+                    customer_id,
+                    TO_CHAR(inquiry_created, 'YYYY"년" MM"월" DD"일" HH24"시"MI"분"') AS inquiry_created,
+                    inquiry_status
                 FROM tbl_inquiry
                 ORDER BY inquiry_no DESC
             ) inner_query
@@ -53,10 +62,22 @@
 
     <!-- 4. 문의 상세 조회 -->
     <select id="inquiryView" resultType="com.boot.dto.InquiryDTO">
-        SELECT *
+        SELECT
+        inquiry_no,
+        customer_id,
+        customer_name,
+        customer_phone,
+        customer_email,
+        inquiry_title,
+        inquiry_content,
+        TO_CHAR(inquiry_created, 'YYYY"년" MM"월" DD"일" HH24"시"MI"분"') AS inquiry_created,
+        reply_content,
+        reply_created,
+        inquiry_status
         FROM tbl_inquiry
         WHERE inquiry_no = #{inquiry_no}
     </select>
+
 
     <!-- 5. 회원 정보 조회 -->
     <select id="getUserInfo" parameterType="string" resultType="com.boot.dto.AccountDTO">

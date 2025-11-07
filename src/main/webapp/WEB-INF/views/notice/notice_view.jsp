@@ -29,6 +29,8 @@
         </div>
     </article>
 
+    <hr>
+
     <!-- 버튼 그룹 -->
     <section class="notice-button-group">
         <form method="get" id="notice-action-form" class="notice-action-form">

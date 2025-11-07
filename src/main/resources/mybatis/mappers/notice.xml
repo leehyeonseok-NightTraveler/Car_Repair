@@ -15,7 +15,7 @@
                     notice_title,
                     notice_writer,
                     notice_content,
-                    notice_created,
+                    TO_CHAR(notice_created, 'YYYY"년" MM"월" DD"일" HH24"시"MI"분"') AS notice_created,
                     notice_views
                 FROM tbl_notice
                 ORDER BY notice_no DESC
@@ -28,10 +28,17 @@
 
     <!-- 2. 공지사항 상세 조회 -->
     <select id="noticeView" resultType="com.boot.dto.NoticeDTO">
-        SELECT *
+        SELECT
+        notice_no,
+        notice_title,
+        notice_writer,
+        notice_content,
+        TO_CHAR(notice_created, 'YYYY"년" MM"월" DD"일" HH24"시"MI"분"') AS notice_created,
+        notice_views
         FROM tbl_notice
         WHERE notice_no = #{notice_no}
     </select>
+
 
     <!-- 3. 공지사항 작성 -->
     <insert id="writeProcess">

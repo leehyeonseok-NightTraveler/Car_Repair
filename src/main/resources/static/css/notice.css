@@ -51,11 +51,11 @@ th {
 }
 
 /* ===== 목록 테이블 컬럼 너비 ===== */
-.notice-table .col-no     { width: 8%; }
+.notice-table .col-no     { width: 6%; }
 .notice-table .col-title  { width: 50%; }
 .notice-table .col-writer { width: 10%; }
-.notice-table .col-date   { width: 15%; }
-.notice-table .col-views  { width: 7%; }
+.notice-table .col-date   { width: 17%; }
+.notice-table .col-views  { width: 6%; }
 
 .notice-row:hover {
     background-color: #f9f9f9;

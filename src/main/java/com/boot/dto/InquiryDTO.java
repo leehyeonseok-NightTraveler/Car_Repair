@@ -17,7 +17,7 @@ public class InquiryDTO {
     private String customer_name;
     private String customer_phone;
     private String customer_email;
-    private Timestamp inquiry_created;
+    private String inquiry_created;
     private String inquiry_status;
     private String reply_content;
     private Timestamp reply_created;
