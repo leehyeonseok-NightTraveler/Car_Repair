@@ -16,6 +16,9 @@ public class InquiryServiceImpl implements InquiryService {
 
     @Autowired
     private SqlSession sqlSession;
+    
+    @Autowired
+    private InquiryDAO dao;
 
     @Override
     public void writeProcess(HashMap<String, String> param) {
@@ -46,4 +49,10 @@ public class InquiryServiceImpl implements InquiryService {
         InquiryDAO dao = sqlSession.getMapper(InquiryDAO.class);
         dao.replyProcess(param);
     }
+    
+    @Override
+    public List<InquiryDTO> selectByAccountId(String accountId) {
+        return dao.selectByAccountId(accountId);
+    }
+
 }

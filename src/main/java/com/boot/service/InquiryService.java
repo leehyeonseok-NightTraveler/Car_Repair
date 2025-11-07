@@ -12,4 +12,5 @@ public interface InquiryService {
     InquiryDTO inquiryView(HashMap<String, String> param);
     AccountDTO getUserInfo(String accountId);
     void replyProcess(HashMap<String, String> param);
+    List<InquiryDTO> selectByAccountId(String accountId);
 }

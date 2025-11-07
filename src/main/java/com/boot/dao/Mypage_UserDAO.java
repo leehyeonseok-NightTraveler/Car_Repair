@@ -1,15 +1,16 @@
 package com.boot.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.boot.dto.AccountDTO;
 
 @Mapper
 public interface Mypage_UserDAO {
 
-    // 1. 아이디 기준 회원정보 조회
-    public AccountDTO getUserInfo(String accountId);
+    AccountDTO getUserInfo(String accountId);
+    int updateUserInfo(AccountDTO account);
 
-    // 2. 회원정보 수정 (이름, 이메일, 전화번호)
-    public int updateUserInfo(AccountDTO account);
+    String getPasswordByAccountId(String accountId); // 추가
+    int updatePassword(@Param("accountId") String accountId, @Param("newPassword") String newPassword); // 추가
 }

@@ -1,23 +1,155 @@
-@charset 'utf-8';
+@charset "utf-8";
 
-/* 사용자 마이페이지 색상 포인트 */
-.mypage-body .mypage-section h3 {
-  border-left-color: #007bff;
+/* ===== 전체 레이아웃 ===== */
+.mypage-body {
+  width: 1180px;
+  margin: 60px auto;
+  padding-bottom: 80px;
 }
 
-/* 예약 상태 강조 */
-.mypage-body .status.reserved {
-  color: #2980b9;
+.mypage-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.mypage-title h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.mypage-title p {
+  color: #777;
+  font-size: 15px;
+}
+
+/* ===== 섹션 기본 ===== */
+.mypage-section {
+  margin-bottom: 60px;
+}
+
+.mypage-section h3 {
+  font-size: 20px;
   font-weight: bold;
+  border-left: 5px solid #007bff;
+  padding-left: 10px;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-/* 차량 리스트 버튼 */
-.mypage-body .car-list .btn-sub {
-  background-color: #eef6ff;
+/* ===== 내 정보 테이블 ===== */
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+}
+
+.info-table th, .info-table td {
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  font-size: 15px;
+}
+
+.info-table th {
+  background-color: #f8f9fa;
+  text-align: left;
+  width: 25%;
+  color: #555;
+}
+
+.info-table td {
+  color: #333;
+}
+
+/* ===== 버튼 ===== */
+.btn-normal {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 14px;
+}
+
+.btn-normal:hover {
+  background-color: #0056b3;
+}
+
+.btn-sub {
+  display: inline-block;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: #333;
+  font-size: 13px;
+  transition: 0.3s;
+}
+
+.btn-sub:hover {
+  background-color: #e9ecef;
+}
+
+/* ===== 1:1 문의 내역 ===== */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.data-table thead {
+  background-color: #f1f3f5;
+}
+
+.data-table th, .data-table td {
+  border: 1px solid #ddd;
+  padding: 10px 12px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.data-table th {
+  font-weight: bold;
+  color: #444;
+}
+
+/* ===== 문의 상태 강조 ===== */
+.status {
+  font-weight: bold;
+  border-radius: 3px;
+  padding: 3px 8px;
+  display: inline-block;
+}
+
+.status.waiting {
+  color: #555;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+}
+
+.status.processing {
+  color: #ff9800;
+  background-color: #fff3e0;
+  border: 1px solid #ffd699;
+}
+
+.status.completed {
   color: #007bff;
-  border-color: #bcdcff;
+  background-color: #e7f1ff;
+  border: 1px solid #b3d4ff;
 }
 
-.mypage-body .car-list .btn-sub:hover {
-  background-color: #d9ecff;
+/* ===== 데이터 없음 문구 ===== */
+.mypage-section p {
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+  margin-top: 20px;
 }

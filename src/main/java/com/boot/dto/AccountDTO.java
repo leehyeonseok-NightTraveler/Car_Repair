@@ -12,6 +12,8 @@ public class AccountDTO {
     private String userName;
     private String accountId;
     private String password;
+    private String currentPassword; // 사용자 입력용, DB에는 없음
+    private String newPassword;     // 사용자 입력용, DB에는 없음
     private String email;
     private String phoneNumber;
     private String accountRole;

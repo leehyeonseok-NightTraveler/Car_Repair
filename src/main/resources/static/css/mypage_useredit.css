@@ -1,0 +1,140 @@
+@charset "utf-8";
+
+/* ===== 기본 PC 레이아웃 ===== */
+.edit-container {
+  width: 680px;
+  margin: 80px auto;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 40px 50px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.edit-container h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 24px;
+  color: #333;
+}
+
+.edit-form .form-group {
+  margin-bottom: 20px;
+}
+
+.edit-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+.edit-form input[type="text"],
+.edit-form input[type="email"],
+.edit-form input[type="tel"],
+.edit-form input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+.divider {
+  margin: 30px 0;
+  border: none;
+  border-top: 1px solid #eee;
+}
+
+.edit-container h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.edit-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.btn-cancel {
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.btn-cancel:hover {
+  background-color: #e9ecef;
+}
+
+.btn-save {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}
+
+.btn-save:hover {
+  background-color: #0056b3;
+}
+
+/* ===== 반응형 구간 시작 ===== */
+@media screen and (max-width: 768px) {
+  .edit-container {
+    width: 90%;
+    margin: 60px auto;
+    padding: 25px 20px;
+  }
+
+  .edit-container h2 {
+    font-size: 20px;
+    margin-bottom: 25px;
+  }
+
+  .edit-form label {
+    font-size: 14px;
+  }
+
+  .edit-form input[type="text"],
+  .edit-form input[type="email"],
+  .edit-form input[type="tel"],
+  .edit-form input[type="password"] {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .edit-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-normal {
+    width: 100%;
+    padding: 12px;
+  }
+}
+
+/* 모바일 초소형 (480px 이하) */
+@media screen and (max-width: 480px) {
+  .edit-container {
+    margin: 40px auto;
+    padding: 20px;
+  }
+
+  .edit-container h2 {
+    font-size: 18px;
+  }
+
+  .edit-container h3 {
+    font-size: 16px;
+  }
+
+  .edit-form input {
+    font-size: 13px;
+  }
+
+  .btn-normal {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
