@@ -17,6 +17,9 @@ public class InquiryServiceImpl implements InquiryService {
 
     @Autowired
     private SqlSession sqlSession;
+    
+    @Autowired
+    private InquiryDAO dao;
 
     /**
      * 1. 문의 등록 처리
@@ -71,7 +74,7 @@ public class InquiryServiceImpl implements InquiryService {
         InquiryDAO dao = sqlSession.getMapper(InquiryDAO.class);
         dao.replyProcess(param);
     }
-
+   
     /**
      * 7. 사용자 문의 총 개수
      */
@@ -89,4 +92,10 @@ public class InquiryServiceImpl implements InquiryService {
         InquiryDAO dao = sqlSession.getMapper(InquiryDAO.class);
         return dao.TotalInquiry();
     }
+
+     @Override
+    public List<InquiryDTO> selectByAccountId(String accountId) {
+        return dao.selectByAccountId(accountId);
+    }
+
 }

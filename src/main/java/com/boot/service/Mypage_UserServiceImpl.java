@@ -25,4 +25,17 @@ public class Mypage_UserServiceImpl implements Mypage_UserService {
     public int updateUserInfo(AccountDTO account) {
         return dao.updateUserInfo(account);
     }
+
+    @Override
+    public boolean updatePassword(String accountId, String currentPw, String newPw) {
+        // 현재 비밀번호 조회
+        String dbPassword = dao.getPasswordByAccountId(accountId);
+        if (dbPassword == null || !dbPassword.equals(currentPw)) {
+            return false;
+        }
+
+        // 새 비밀번호 업데이트
+        dao.updatePassword(accountId, newPw);
+        return true;
+    }
 }

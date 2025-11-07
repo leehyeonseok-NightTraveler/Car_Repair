@@ -32,4 +32,7 @@ public interface InquiryService {
 
     // 8. 전체 문의 총 개수 (관리자용 페이징)
     int TotalInquiry();
+  
+    // 문의 확인용
+    List<InquiryDTO> selectByAccountId(String accountId;
 }

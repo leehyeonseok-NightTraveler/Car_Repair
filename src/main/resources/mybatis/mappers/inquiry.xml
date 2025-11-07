@@ -80,6 +80,14 @@
         inquiry_status = '답변완료'
         WHERE inquiry_no = #{inquiry_no, jdbcType=INTEGER}
     </update>
+    
+    <select id="selectByAccountId" parameterType="string" resultType="com.boot.dto.InquiryDTO">
+	  SELECT inquiry_no, inquiry_title, inquiry_status, inquiry_created
+	  FROM tbl_inquiry
+	  WHERE account_id = #{accountId}
+	  ORDER BY inquiry_no DESC
+	</select>
+
 
     <!-- 7. 사용자 문의 총 개수 -->
     <select id="TotalInquiryUser" resultType="int">

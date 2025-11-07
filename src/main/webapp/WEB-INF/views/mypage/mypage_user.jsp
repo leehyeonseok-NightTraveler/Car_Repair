@@ -20,7 +20,7 @@
 
   <div class="mypage-title">
     <h2>마이페이지</h2>
-    <p>회원님의 예약 현황과 차량 정보를 확인하세요.</p>
+    <p>회원님의 문의 내역과 계정 정보를 확인하세요.</p>
   </div>
 
   <!-- 내 정보 -->
@@ -35,67 +35,39 @@
     <button class="btn-normal" onclick="location.href='editProfile'">정보 수정</button>
   </section>
 
-  <!-- 예약 내역 -->
+  <!-- 1:1 문의 내역 -->
   <section class="mypage-section">
-    <h3>예약 내역</h3>
+    <h3>1:1 문의 내역</h3>
     <c:choose>
-      <c:when test="${not empty reservationList}">
+      <c:when test="${not empty inquiryList}">
         <table class="data-table">
           <thead>
-            <tr><th>예약일자</th><th>업체명</th><th>서비스</th><th>상태</th></tr>
+            <tr>
+              <th>번호</th>
+              <th>제목</th>
+              <th>작성일</th>
+              <th>상태</th>
+              <th>보기</th>
+            </tr>
           </thead>
           <tbody>
-            <c:forEach var="r" items="${reservationList}">
+            <c:forEach var="q" items="${inquiryList}">
               <tr>
-                <td>${r.reserve_date}</td>
-                <td>${r.store_name}</td>
-                <td>${r.service_name}</td>
-                <td class="status ${r.status eq '예약중' ? 'reserved' : ''}">${r.status}</td>
+                <td>${q.inquiry_no}</td>
+                <td>${q.inquiry_title}</td>
+                <td><fmt:formatDate value="${q.inquiry_created}" pattern="yyyy-MM-dd"/></td>
+                <td>${q.inquiry_status}</td>
+                <td>
+                  <a href="${pageContext.request.contextPath}/inquiry/inquiry_view?inquiry_no=${q.inquiry_no}"
+                     class="btn-sub">상세보기</a>
+                </td>
               </tr>
             </c:forEach>
           </tbody>
         </table>
       </c:when>
       <c:otherwise>
-        <p>예약 내역이 없습니다.</p>
-      </c:otherwise>
-    </c:choose>
-  </section>
-
-  <!-- 차량 관리 -->
-  <section class="mypage-section">
-    <h3>내 차량</h3>
-    <c:choose>
-      <c:when test="${not empty carList}">
-        <ul class="car-list">
-          <c:forEach var="c" items="${carList}">
-            <li>
-              ${c.car_name} (${c.car_number})
-              <button class="btn-sub" onclick="deleteCar('${c.car_id}')">삭제</button>
-            </li>
-          </c:forEach>
-        </ul>
-      </c:when>
-      <c:otherwise>
-        <p>등록된 차량이 없습니다.</p>
-      </c:otherwise>
-    </c:choose>
-    <button class="btn-normal" onclick="location.href='addCar'">차량 추가</button>
-  </section>
-
-  <!-- 내가 쓴 리뷰 -->
-  <section class="mypage-section">
-    <h3>내가 쓴 리뷰</h3>
-    <c:choose>
-      <c:when test="${not empty reviewList}">
-        <c:forEach var="r" items="${reviewList}">
-          <div class="review-box">
-            <p><strong>${r.store_name}</strong> — “${r.content}” ★${r.rating}</p>
-          </div>
-        </c:forEach>
-      </c:when>
-      <c:otherwise>
-        <p>작성한 리뷰가 없습니다.</p>
+        <p>등록된 문의 내역이 없습니다.</p>
       </c:otherwise>
     </c:choose>
   </section>
@@ -103,14 +75,6 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/footer.jsp" />
-
-<script>
-  function deleteCar(id) {
-    if(confirm("차량을 삭제하시겠습니까?")) {
-      location.href = "deleteCar?car_id=" + id;
-    }
-  }
-</script>
 
 </body>
 </html>
