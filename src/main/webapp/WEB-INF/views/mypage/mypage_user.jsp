@@ -58,7 +58,8 @@
               <tr>
                 <td>${q.inquiry_no}</td>
                 <td>${q.inquiry_title}</td>
-                <td><fmt:formatDate value="${q.inquiry_created}" pattern="yyyy-MM-dd"/></td>
+<%--                <td><fmt:formatDate value="${q.inquiry_created}" pattern="yyyy-MM-dd"/></td>--%>
+                  <td><c:out value="${q.inquiry_created}"/> </td>
                 <td>${q.inquiry_status}</td>
                 <td>
                   <a href="${pageContext.request.contextPath}/inquiry/inquiry_view?inquiry_no=${q.inquiry_no}"
