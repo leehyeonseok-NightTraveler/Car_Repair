@@ -7,6 +7,9 @@ import com.boot.dto.InquiryDTO;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
 public interface InquiryDAO {
 
     // 1. 사용자 문의 등록

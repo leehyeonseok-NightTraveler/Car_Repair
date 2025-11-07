@@ -13,12 +13,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.boot.dto.AccountDTO;
 import com.boot.dto.InquiryDTO;
-import com.boot.service.AccountService;
 import com.boot.service.InquiryService;
 import com.boot.service.Mypage_UserService;
 
 @Controller
-@RequestMapping("/mypage")
+@RequestMapping("/mypage_user")
 public class Mypage_UserController {
 
     @Autowired
@@ -41,8 +40,20 @@ public class Mypage_UserController {
         List<InquiryDTO> inquiryList = inquiryService.selectByAccountId(accountId);
         model.addAttribute("inquiryList", inquiryList);
 
-        return "mypage_user"; // JSP 파일명
+        return "mypage/mypage_user"; // JSP 파일명
     }
+    
+    @GetMapping("/mypage_useredit")
+    public String editProfile(HttpSession session, Model model) {
+        String accountId = (String) session.getAttribute("accountId");
+        if (accountId == null) return "redirect:/login";
+
+        AccountDTO user = service.getUserInfo(accountId);
+        model.addAttribute("user", user);
+
+        return "mypage/mypage_useredit";  // JSP 경로 정확히 지정
+    }
+
 
     // 회원 정보 수정
     @PostMapping("/update")
@@ -53,17 +64,16 @@ public class Mypage_UserController {
         // 기본 정보 수정
         int result = service.updateUserInfo(dto);
 
-        // 비밀번호 변경 로직 추가
+        // 비밀번호 변경 로직
         if (dto.getNewPassword() != null && !dto.getNewPassword().isEmpty()) {
             boolean pwChanged = service.updatePassword(accountId, dto.getCurrentPassword(), dto.getNewPassword());
             if (!pwChanged) {
                 rttr.addFlashAttribute("msg", "현재 비밀번호가 일치하지 않습니다.");
-                return "redirect:/mypage";
+                return "redirect:/mypage_user";  // 수정됨
             }
         }
 
         rttr.addFlashAttribute("msg", result > 0 ? "정보 수정 완료" : "수정 실패");
-        return "redirect:/mypage";
+        return "redirect:/mypage_user";  // 수정됨
     }
-
 }

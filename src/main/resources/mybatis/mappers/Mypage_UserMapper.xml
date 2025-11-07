@@ -3,36 +3,39 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.boot.dao.Mypage_StoreDAO">
+<mapper namespace="com.boot.dao.Mypage_UserDAO">
 
-  <!-- 업체 정보 조회 -->
-  <select id="getStoreInfo" parameterType="string" resultType="com.boot.dto.StoreDTO">
-    SELECT 
-      store_id AS storeId,
-      email,
-      phone_number AS phoneNumber,
-      address,
-      latitude,
-      longitude,
-      description,
-      opening_hours AS openingHours,
-      reg_date AS regDate
-    FROM tbl_store
-    WHERE store_id = #{storeId}
+  <!-- 회원 정보 조회 -->
+  <select id="getUserInfo" parameterType="string" resultType="com.boot.dto.AccountDTO">
+    SELECT user_name AS userName,
+           account_id AS accountId,
+           email,
+           phone_number AS phoneNumber,
+           account_role AS accountRole,
+           reg_date AS regDate
+    FROM tbl_account
+    WHERE account_id = #{accountId}
   </select>
 
-  <!-- 업체 정보 수정 -->
-  <update id="updateStoreInfo" parameterType="com.boot.dto.StoreDTO">
-    UPDATE tbl_store
-    SET 
-      email = #{email},
-      phone_number = #{phoneNumber},
-      address = #{address},
-      latitude = #{latitude},
-      longitude = #{longitude},
-      description = #{description},
-      opening_hours = #{openingHours}
-    WHERE store_id = #{storeId}
+  <!-- 회원 정보 수정 -->
+  <update id="updateUserInfo" parameterType="com.boot.dto.AccountDTO">
+    UPDATE tbl_account
+    SET user_name = #{userName},
+        email = #{email},
+        phone_number = #{phoneNumber}
+    WHERE account_id = #{accountId}
+  </update>
+
+  <select id="getPasswordByAccountId" resultType="string">
+    SELECT password
+    FROM tbl_account
+    WHERE account_id = #{accountId}
+  </select>
+
+  <update id="updatePassword">
+    UPDATE tbl_account
+    SET password = #{newPassword}
+    WHERE account_id = #{accountId}
   </update>
 
 </mapper>

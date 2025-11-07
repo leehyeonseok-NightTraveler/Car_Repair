@@ -27,12 +27,15 @@
   <section class="mypage-section">
     <h3>내 정보</h3>
     <table class="info-table">
-      <tr><th>이름</th><td>${user.user_name}</td></tr>
-      <tr><th>이메일</th><td>${user.email}</td></tr>
-      <tr><th>전화번호</th><td>${user.phone_number}</td></tr>
-      <tr><th>가입일</th><td><fmt:formatDate value="${user.reg_date}" pattern="yyyy-MM-dd"/></td></tr>
+		<tr><th>이름</th><td>${user.userName}</td></tr>
+		<tr><th>이메일</th><td>${user.email}</td></tr>
+		<tr><th>전화번호</th><td>${user.phoneNumber}</td></tr>
+		<tr><th>가입일</th><td><fmt:formatDate value="${user.regDate}" pattern="yyyy-MM-dd"/></td></tr>
     </table>
-    <button class="btn-normal" onclick="location.href='editProfile'">정보 수정</button>
+	<button class="btn-normal"
+	        onclick="location.href='${pageContext.request.contextPath}/mypage_user/mypage_useredit'">
+	    정보 수정
+	</button>
   </section>
 
   <!-- 1:1 문의 내역 -->
