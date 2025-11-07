@@ -15,11 +15,18 @@
 <!-- 왼쪽 플로팅 메뉴 -->
 <div class="floating-wrapper">
     <div class="floating-menu">
-        <a href="<c:url value='/inquiry/inquiry_write'/>">1:1 문의</a>
-        <a href="<c:url value='/inquiry/inquiry_history'/>">문의 내역</a>
+        <!-- USER 또는 STORE일 경우 -->
+        <c:if test="${userInfo.accountRole == 'USER' || userInfo.accountRole == 'STORE'}">
+            <a href="<c:url value='/inquiry/inquiry_write'/>">1:1 문의</a>
+            <a href="<c:url value='/inquiry/inquiry_history'/>">내 문의 내역</a>
+        </c:if>
+
+        <!-- ADMIN일 경우 -->
+        <c:if test="${userInfo.accountRole == 'ADMIN'}">
+            <a href="<c:url value='/inquiry/inquiry_manage'/>">문의 관리</a>
+        </c:if>
     </div>
 </div>
-
 
 <!-- 문의 등록 폼 -->
 <main class="content">
@@ -28,7 +35,7 @@
 
         <div class="form-group">
             <label for="customer_name">이름</label>
-            <input type="text" id="customer_name" name="customer_name"  />
+            <input type="text" id="customer_name" name="customer_name" />
         </div>
 
         <div class="form-group">

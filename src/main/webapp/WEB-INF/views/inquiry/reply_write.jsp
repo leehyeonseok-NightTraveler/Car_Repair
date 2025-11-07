@@ -13,11 +13,26 @@
 <jsp:include page="/WEB-INF/views/header.jsp"/>
 
 <main id="inquiry-view-container" class="inquiry-view-container">
+
+    <!-- 페이징용 폼 -->
+    <form method="get" id="actionForm">
+        <input type="hidden" name="pageNum" value="<c:out value='${pageMaker.cri.pageNum}'/>">
+        <input type="hidden" name="amount" value="<c:out value='${pageMaker.cri.amount}'/>">
+    </form>
+
     <!-- 왼쪽 플로팅 메뉴 -->
-    <div id="floating-wrapper" class="floating-wrapper">
-        <div id="floating-menu" class="floating-menu">
-            <a id="write-link" class="floating-link" href="<c:url value='/inquiry/inquiry_write'/>">1:1 문의</a>
-            <a id="history-link" class="floating-link" href="<c:url value='/inquiry/inquiry_history'/>">문의 내역</a>
+    <div class="floating-wrapper">
+        <div class="floating-menu">
+            <!-- USER 또는 STORE일 경우 -->
+            <c:if test="${userInfo.accountRole == 'USER' || userInfo.accountRole == 'STORE'}">
+                <a href="<c:url value='/inquiry/inquiry_write'/>">1:1 문의</a>
+                <a href="<c:url value='/inquiry/inquiry_history'/>">내 문의 내역</a>
+            </c:if>
+
+            <!-- ADMIN일 경우 -->
+            <c:if test="${userInfo.accountRole == 'ADMIN'}">
+                <a href="<c:url value='/inquiry/inquiry_manage'/>">문의 관리</a>
+            </c:if>
         </div>
     </div>
 

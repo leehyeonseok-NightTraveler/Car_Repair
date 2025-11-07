@@ -13,17 +13,31 @@
 <jsp:include page="/WEB-INF/views/header.jsp"/>
 
 <main id="inquiry-view-container" class="inquiry-view-container">
+
+    <!-- 페이징용 폼 -->
+    <form method="get" id="actionForm">
+        <input type="hidden" name="pageNum" value="<c:out value='${pageMaker.cri.pageNum}'/>">
+        <input type="hidden" name="amount" value="<c:out value='${pageMaker.cri.amount}'/>">
+    </form>
+
     <!-- 왼쪽 플로팅 메뉴 -->
-    <div id="floating-wrapper" class="floating-wrapper">
-        <div id="floating-menu" class="floating-menu">
-            <a id="write-link" class="floating-link" href="<c:url value='/inquiry/inquiry_write'/>">1:1 문의</a>
-            <a id="history-link" class="floating-link" href="<c:url value='/inquiry/inquiry_history'/>">문의 내역</a>
+    <div class="floating-wrapper">
+        <div class="floating-menu">
+            <!-- USER 또는 STORE일 경우 -->
+            <c:if test="${userInfo.accountRole == 'USER' || userInfo.accountRole == 'STORE'}">
+                <a href="<c:url value='/inquiry/inquiry_write'/>">1:1 문의</a>
+                <a href="<c:url value='/inquiry/inquiry_history'/>">내 문의 내역</a>
+            </c:if>
+
+            <!-- ADMIN일 경우 -->
+            <c:if test="${userInfo.accountRole == 'ADMIN'}">
+                <a href="<c:url value='/inquiry/inquiry_manage'/>">문의 관리</a>
+            </c:if>
         </div>
     </div>
-
     <!-- 제목 영역 -->
     <section id="inquiry-header" class="inquiry-header">
-        <h2 id="inquiry-title" class="inquiry-title">${inquiryView.inquiry_title}</h2>
+        <h2 id="inquiry-title" class="inquiry-title"><c:out value="${inquiryView.inquiry_title}"/></h2>
         <hr id="inquiry-divider" class="inquiry-divider">
     </section>
 
@@ -33,7 +47,7 @@
             ${inquiryView.inquiry_content}
         </div>
         <div id="inquiry-meta" class="inquiry-meta">
-            <span id="inquiry-date" class="inquiry-date">${inquiryView.inquiry_created}</span>
+            <span id="inquiry-date" class="inquiry-date"><c:out value="${inquiryView.inquiry_created}"/></span>
         </div>
     </article>
 
@@ -42,8 +56,7 @@
             <form>
                 <section id="inquiry-reply" class="inquiry-reply">
                     <h3 class="reply-title">관리자 답변</h3>
-                    <div class="reply-content">
-                            ${inquiryView.reply_content}
+                    <div class="reply-content"> <c:out value="${inquiryView.inquiry_title}"/>
                     </div>
                     <!-- ✅ 관리자 전용 답변 작성 버튼 -->
                     <div class="reply-button">

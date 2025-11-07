@@ -10,18 +10,34 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"/>
+
 <main id="inquiry-history-container" class="inquiry-history-container">
-    <form id="actionForm" method="post"></form>
+
+    <!-- 페이징용 폼 -->
+    <form method="get" id="actionForm">
+        <input type="hidden" name="pageNum" value="<c:out value='${pageMaker.cri.pageNum}'/>">
+        <input type="hidden" name="amount" value="<c:out value='${pageMaker.cri.amount}'/>">
+    </form>
+
     <!-- 왼쪽 플로팅 메뉴 -->
     <div class="floating-wrapper">
         <div class="floating-menu">
-            <a href="<c:url value='/inquiry/inquiry_write'/>">1:1 문의</a>
-            <a href="<c:url value='/inquiry/inquiry_history'/>">문의 내역</a>
+            <!-- USER 또는 STORE일 경우 -->
+            <c:if test="${userInfo.accountRole == 'USER' || userInfo.accountRole == 'STORE'}">
+                <a href="<c:url value='/inquiry/inquiry_write'/>">1:1 문의</a>
+                <a href="<c:url value='/inquiry/inquiry_history'/>">내 문의 내역</a>
+            </c:if>
+
+            <!-- ADMIN일 경우 -->
+            <c:if test="${userInfo.accountRole == 'ADMIN'}">
+                <a href="<c:url value='/inquiry/inquiry_manage'/>">문의 관리</a>
+            </c:if>
         </div>
     </div>
 
     <!-- 콘텐츠 박스 -->
     <div class="content">
+
         <!-- 헤더 영역 -->
         <section class="inquiry-header">
             <h1 class="inquiry-title">문의 내역</h1>
@@ -64,7 +80,31 @@
             </table>
         </section>
     </div>
+
+    <!-- 페이징 영역 -->
+    <nav class="pagination-container">
+        <ul class="pagination-list">
+            <c:if test="${pageMaker.prev}">
+                <li class="pagination-item prev paginate_button">
+                    <a class="pagination-link" href="<c:out value='${pageMaker.startPage - 1}'/>">[이전]</a>
+                </li>
+            </c:if>
+
+            <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                <li class="pagination-item page-num paginate_button">
+                    <a class="pagination-link" href="<c:out value='${num}'/>">[${num}]</a>
+                </li>
+            </c:forEach>
+
+            <c:if test="${pageMaker.next}">
+                <li class="pagination-item next paginate_button">
+                    <a class="pagination-link" href="<c:out value='${pageMaker.endPage + 1}'/>">[다음]</a>
+                </li>
+            </c:if>
+        </ul>
+    </nav>
 </main>
+
 <jsp:include page="/WEB-INF/views/footer.jsp"/>
 </body>
 </html>

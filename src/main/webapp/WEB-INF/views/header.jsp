@@ -24,8 +24,18 @@
 	            <li><a href="<c:url value='/recommend' />">주변 정비소</a></li>
 				<li class="dropdown-parent"><a href="#">고객센터</a>
 	                <ul class="submenu">
-                    	<li><a href="<c:url value='/inquiry/inquiry_write'/>">1:1 문의</a></li>
-                 		<li><a href="<c:url value='/notice/notice_list'/>">공지사항</a></li>
+                        <li>
+                            <c:choose>
+                                <c:when test="${sessionScope.ROLE == 'USER' || sessionScope.ROLE == 'STORE'}">
+                                    <a href="<c:url value='/inquiry/inquiry_history'/>">1:1 문의</a>
+                                </c:when>
+                                <c:when test="${sessionScope.ROLE == 'ADMIN'}">
+                                    <a href="<c:url value='/inquiry/inquiry_manage'/>">문의 관리</a>
+                                </c:when>
+                            </c:choose>
+                        </li>
+
+                        <li><a href="<c:url value='/notice/notice_list'/>">공지사항</a></li>
                     	<li><a href="<c:url value='/faq'/>">FAQ</a></li>
 	        		</ul>
 			</ul>
