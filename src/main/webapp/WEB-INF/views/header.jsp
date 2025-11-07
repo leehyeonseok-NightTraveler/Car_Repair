@@ -43,6 +43,7 @@
 			
 	        <ul class="util">
 				<c:choose>
+					
 				  <c:when test="${sessionScope.ROLE eq 'USER'}">
 				    <li><a href="<c:url value='/mypage_user'/>">마이페이지</a></li>
 				    <li><a href="<c:url value='/logout'/>">로그아웃</a></li>
@@ -55,7 +56,7 @@
 
 				  <c:when test="${sessionScope.ROLE eq 'ADMIN'}">
 				    <li><a href="<c:url value='/mypage_admin'/>">관리자 페이지</a></li>
-				    <li><a href="<c:url value='/logout'/>">로그아웃</a></li>
+				    <li><a href="<c:url value='/admin/exit'/>">모드 해제</a></li>
 				  </c:when>
 
 				  <c:otherwise>
@@ -63,7 +64,10 @@
 				    <li><a href="<c:url value='/register'/>">회원가입</a></li>
 				  </c:otherwise>
 				</c:choose>
-
+			<!-- 관리자 모드 진입 버튼 (모든 상태에서 접근 가능) -->
+				 <li class="admin-enter">
+				   <a href="<c:url value='/admin/enter'/>">관리자 모드</a>
+				 </li>
 	      </ul>
 	    </div>
 	</header>

@@ -18,4 +18,6 @@ public class AccountDTO {
     private String phoneNumber;
     private String accountRole;
     private Date regDate;
+ // 새로 추가된 필드
+    private String account_status; // ACTIVE, SUSPENDED, DELETED
 }

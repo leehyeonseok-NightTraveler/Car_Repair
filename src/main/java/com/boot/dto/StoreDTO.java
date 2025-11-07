@@ -21,4 +21,7 @@ public class StoreDTO {
     private double longitude;   // 경도 (NUMBER -> double)
     private String description; // CLOB -> String
     private String openingHours;
+
+    // 새로 추가된 필드
+    private String store_status; // PENDING, APPROVED, REJECTED
 }

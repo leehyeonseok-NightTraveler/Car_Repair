@@ -16,4 +16,6 @@ public class LoginDTO {
     private String phoneNumber;
     private String accountRole;
     private Date regDate;
+    private String accountStatus;
+
 }
