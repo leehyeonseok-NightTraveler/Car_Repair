@@ -9,7 +9,7 @@
             FAQ_NO AS faqNo, 
             FAQ_TITLE AS faqTitle, 
             FAQ_CONTENT AS faqContent,
-            FAQ_CREATED AS faqCreated,
+            TO_CHAR(FAQ_CREATED, 'YYYY"년" MM"월" DD"일" HH24"시"MI"분"') AS faqCreated,
             FAQ_HIT AS faqHit
         FROM 
             TBL_FAQ 
