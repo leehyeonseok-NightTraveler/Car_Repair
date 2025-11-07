@@ -171,3 +171,49 @@ th {
 .pagination-item a:hover {
     background-color: #ddd;
 }
+
+/* ===================== 검색 폼 ===================== */
+#searchForm {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    padding: 10px 0;
+}
+
+#searchForm select {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    min-width: 140px;
+}
+
+#searchForm button {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #007acc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#searchForm button:hover {
+    background-color: #005b9f;
+}
+
+#searchForm input[name="keyword"] {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    min-width: 200px;
+    flex: 1;
+}

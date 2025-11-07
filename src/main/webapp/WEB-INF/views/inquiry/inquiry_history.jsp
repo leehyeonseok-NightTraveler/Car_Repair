@@ -17,6 +17,8 @@
     <form method="get" id="actionForm">
         <input type="hidden" name="pageNum" value="<c:out value='${pageMaker.cri.pageNum}'/>">
         <input type="hidden" name="amount" value="<c:out value='${pageMaker.cri.amount}'/>">
+        <input type="hidden" name="type" value="<c:out value='${pageMaker.cri.type}'/>">
+        <input type="hidden" name="keyword" value="<c:out value='${pageMaker.cri.keyword}'/>">
     </form>
 
     <!-- 왼쪽 플로팅 메뉴 -->
@@ -43,6 +45,15 @@
             <h1 class="inquiry-title">문의 내역</h1>
             <hr class="inquiry-divider">
         </section>
+
+        <form method="get" id="searchForm">
+            <select name="type">
+                <option value="" <c:out value="${pageMaker.cri.type == null?'selected':''}"/>>--</option>
+                <option value="W" <c:out value="${pageMaker.cri.type eq 'W'?'selected':''}"/>>답변대기</option>
+                <option value="C" <c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>답변완료</option>
+            </select>
+            <button>Search</button>
+        </form>
 
         <!-- 문의 목록 테이블 -->
         <section class="inquiry-table-wrapper">

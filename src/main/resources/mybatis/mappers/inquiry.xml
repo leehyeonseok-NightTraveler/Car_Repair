@@ -3,6 +3,15 @@
 
 <mapper namespace="com.boot.dao.InquiryDAO">
 
+    <sql id="criteria">
+        <if test='param != null and param.type == "W"'>
+            AND inquiry_status = '답변대기'
+        </if>
+        <if test='param != null and param.type == "C"'>
+            AND inquiry_status = '답변완료'
+        </if>
+    </sql>
+
     <!-- 1. 문의 등록 -->
     <insert id="writeProcess">
         INSERT INTO tbl_inquiry (
@@ -30,6 +39,9 @@
                     inquiry_status
                 FROM tbl_inquiry
                 WHERE customer_id = #{param.customer_id}
+                ]]>
+                <include refid="criteria"/>
+                <![CDATA[
                 ORDER BY inquiry_no DESC
             ) inner_query
             WHERE rownum <= #{cri.pageNum} * #{cri.amount}
@@ -52,9 +64,13 @@
                     TO_CHAR(inquiry_created, 'YYYY"년" MM"월" DD"일" HH24"시"MI"분"') AS inquiry_created,
                     inquiry_status
                 FROM tbl_inquiry
+
                 ORDER BY inquiry_no DESC
             ) inner_query
             WHERE rownum <= #{cri.pageNum} * #{cri.amount}
+            ]]>
+            <include refid="criteria"/>
+            <![CDATA[
         )
         WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount}
         ]]>

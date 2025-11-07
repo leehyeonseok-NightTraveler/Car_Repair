@@ -31,4 +31,20 @@ $(document).ready(function () {
 
         actionForm.attr("action", "/notice/notice_view").submit();
     });
+
+    // 검색 버튼 클릭 시 유효성 검사 및 검색 요청
+    $("#searchForm button").on("click", function () {
+        if (searchForm.find("option:selected").val() !== "" && !searchForm.find("input[name='keyword']").val()) {
+            alert("키워드를 입력하세요.");
+            return false;
+        }
+        searchForm.attr("action", "/notice/notice_list").submit();
+    });
+
+    // 검색 조건 변경 시 키워드 초기화
+    $("#searchForm select").on("change", function () {
+        if (searchForm.find("option:selected").val() === "") {
+            searchForm.find("input[name='keyword']").val("");
+        }
+    });
 });
