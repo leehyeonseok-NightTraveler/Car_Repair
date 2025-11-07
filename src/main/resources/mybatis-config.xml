@@ -5,6 +5,7 @@
 <configuration>
 	<mappers>
 		<mapper resource="mybatis/mappers/accountMapper.xml"/>
+		<mapper resource="mybatis/mappers/adminMapper.xml"/>
 		<mapper resource="mybatis/mappers/storeMapper.xml"/>
 		<mapper resource="mybatis/mappers/page.xml"/>
     	<mapper resource="mybatis/mappers/faq.xml"/>
