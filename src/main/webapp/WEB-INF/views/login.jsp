@@ -77,7 +77,7 @@
 			</tr>				
 			<tr>
 				<td>
-					<input type="button" class="btn" onclick="#" value="비밀번호 찾기">
+					<input type="button" class="btn" onclick="location.href='findAccount'" value="아이디/비밀번호 찾기">
 				</td>
 				<td>
 					<input type="button" class="btn" onclick="location.href='register'" value="회원가입">
