@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="<c:out value='${pageContext.request.contextPath}/css/inquiry.css'/>">
 </head>
 <body>
+
+<!-- 공통 헤더 -->
 <jsp:include page="/WEB-INF/views/header.jsp"/>
 
 <main id="inquiry-history-container" class="inquiry-history-container">
@@ -22,29 +24,17 @@
     <!-- 왼쪽 플로팅 메뉴 -->
     <div class="floating-wrapper">
         <div class="floating-menu">
-            <!-- USER 또는 STORE일 경우 -->
-            <c:if test="${userInfo.accountRole == 'USER' || userInfo.accountRole == 'STORE'}">
-                <a href="<c:url value='/inquiry/inquiry_write'/>">1:1 문의</a>
-                <a href="<c:url value='/inquiry/inquiry_history'/>">내 문의 내역</a>
-            </c:if>
-
-            <!-- ADMIN일 경우 -->
-            <c:if test="${userInfo.accountRole == 'ADMIN'}">
-                <a href="<c:url value='/inquiry/inquiry_manage'/>">문의 관리</a>
-            </c:if>
+            <a href="<c:url value='/inquiry/inquiry_manage'/>">문의 관리</a>
         </div>
     </div>
 
     <!-- 콘텐츠 박스 -->
     <div class="content">
-
-        <!-- 헤더 영역 -->
         <section class="inquiry-header">
             <h1 class="inquiry-title">문의 내역</h1>
             <hr class="inquiry-divider">
         </section>
 
-        <!-- 문의 목록 테이블 -->
         <section class="inquiry-table-wrapper">
             <table class="inquiry-table">
                 <thead>
@@ -56,22 +46,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="inquiry" items="${inquiryList}">
+                <c:forEach var="manage" items="${ManageList}">
                     <tr class="inquiry-row">
-                        <td><c:out value="${inquiry.inquiry_no}"/></td>
+                        <td><c:out value="${manage.inquiry_no}"/></td>
                         <td>
                             <a class="inquiry-link"
-                               href="<c:out value='inquiry/inquiry_view?inquiry_no=${inquiry.inquiry_no}'/>">
-                                <c:out value="${inquiry.inquiry_title}"/>
+                               href="<c:url value='/inquiry/inquiry_view?inquiry_no=${manage.inquiry_no}'/>">
+                                <c:out value="${manage.inquiry_title}"/>
                             </a>
                         </td>
-                        <td><c:out value="${inquiry.inquiry_created}"/></td>
-                        <td class="status-cell ${inquiry.inquiry_status}">
-                            <c:out value="${inquiry.inquiry_status}"/>
+                        <td><c:out value="${manage.inquiry_created}"/></td>
+                        <td class="status-cell <c:out value='${manage.inquiry_status}'/>">
+                            <c:out value="${manage.inquiry_status}"/>
                         </td>
                     </tr>
                 </c:forEach>
-                <c:if test="${empty inquiryList}">
+                <c:if test="${empty ManageList}">
                     <tr>
                         <td colspan="4" class="no-inquiry">문의 내역이 없습니다.</td>
                     </tr>
@@ -89,13 +79,11 @@
                     <a class="pagination-link" href="<c:out value='${pageMaker.startPage - 1}'/>">[이전]</a>
                 </li>
             </c:if>
-
             <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
                 <li class="pagination-item page-num paginate_button">
                     <a class="pagination-link" href="<c:out value='${num}'/>">[${num}]</a>
                 </li>
             </c:forEach>
-
             <c:if test="${pageMaker.next}">
                 <li class="pagination-item next paginate_button">
                     <a class="pagination-link" href="<c:out value='${pageMaker.endPage + 1}'/>">[다음]</a>
@@ -103,8 +91,11 @@
             </c:if>
         </ul>
     </nav>
+
 </main>
 
+<!-- 공통 푸터 -->
 <jsp:include page="/WEB-INF/views/footer.jsp"/>
+
 </body>
 </html>

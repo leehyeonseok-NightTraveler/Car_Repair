@@ -9,26 +9,27 @@ import java.util.List;
 
 public interface NoticeDAO {
 
-    // 공지사항 목록 조회 (페이징 포함)
+    // 1. 공지사항 목록 조회 (페이징 포함)
     List<NoticeDTO> noticeList(HashMap<String, String> param, Criteria cri);
 
-    // 공지사항 상세보기
+    // 2. 공지사항 상세 조회
     NoticeDTO noticeView(HashMap<String, String> param);
 
-    // 공지사항 작성
+    // 3. 공지사항 작성
     void writeProcess(HashMap<String, String> param);
 
-    // 공지사항 수정
+    // 4. 공지사항 수정
     void modifyProcess(HashMap<String, String> param);
 
-    // 공지사항 삭제
+    // 5. 공지사항 삭제
     void deleteProcess(HashMap<String, String> param);
 
-    // 전체 게시글 hi수 조회 (페이징용)
+    // 6. 전체 공지사항 수 조회 (페이징용)
     int getTotalCount();
 
-    // 조회수 증가
+    // 7. 공지사항 조회수 증가
     void increaseViews(HashMap<String, String> param);
 
+    // 8. 사용자 정보 조회
     AccountDTO getUserInfo(String accountId);
 }
