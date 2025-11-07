@@ -313,3 +313,78 @@
     text-decoration: underline;
     color: #000; /* 마우스 올렸을 때 색상 (선택 사항) */
 }
+/*
+================================
+ FAQ 작성/수정 폼 스타일 (form-page)
+================================
+*/
+
+/* 폼 페이지 컨테이너 */
+.faq-container.form-page {
+    width: 100%;
+    max-width: 900px; /* 폼 너비를 조금 넓게 설정 */
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.faq-container.form-page h2 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 50px; /* 제목과 폼 사이 간격 */
+}
+
+/* 폼 그룹 (라벨 + 인풋) */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+}
+
+.form-group textarea {
+    resize: vertical; /* 세로 크기만 조절 가능하도록 */
+    min-height: 200px; /* 최소 높이 */
+}
+
+/* 버튼 영역 */
+.button-area.submit-group {
+    text-align: center; /* 버튼 가운데 정렬 */
+    margin-top: 30px;
+}
+
+/* * 등록 버튼(#btnSubmit) 스타일
+*/
+#btnSubmit {
+    display: inline-block;
+    padding: 10px 25px;
+    margin: 0 5px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #555; /* 기본 버튼 색상 */
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#btnSubmit:hover {
+    background-color: #333;
