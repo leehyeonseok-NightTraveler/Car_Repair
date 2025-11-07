@@ -34,5 +34,5 @@ public interface InquiryService {
     int TotalInquiry();
   
     // 문의 확인용
-    List<InquiryDTO> selectByAccountId(String accountId;
+    List<InquiryDTO> selectByAccountId(String accountId);
 }
