@@ -11,38 +11,45 @@
 <jsp:include page="/WEB-INF/views/header.jsp" />
 
 <body>
-<main>
-   <div class="faq-detail-container">
-      <h2>FAQ 상세 보기</h2>
-      
-      <input type="hidden" id="faqNo" value="${faq.faqNo}"> 
-      
-      <div class="faq-detail-title">
-         <span class="q-icon">Q.</span> ${faq.faqTitle}
-      </div>
-      
-      <div class="faq-detail-answer">
-         ${faq.faqContent}
-      </div>
-      
-      <div class="faq-detail-meta">
-         <span>작성일: ${faq.faqCreated}</span>
-         <span>조회수: ${faq.faqHit}</span>
-      </div>
-
-      <div class="button-area">
-         <a href="faq" class="btn-list">목록으로</a>
-      	<button type="button" id="btnModify" class="btn-action">수정</button>
-      	<button type="button" id="btnDelete" class="btn-delete">삭제</button>
-      </div>
-	  
-	  <form id="actionForm" action="" method="post">
-        <input type="hidden" name="faq_no" id="actionFaqNo">
-        <input type="hidden" name="pageNum" id="actionPageNum">
-        <input type="hidden" name="amount" id="actionAmount">
-    </form>
-   </div>
-</main>
+	<main>
+	   <div class="faq-detail-container">
+	      <h2>FAQ 상세 보기</h2>
+	      
+	      <%-- [필수] Hidden Inputs는 그대로 둡니다 --%>
+	      <input type="hidden" id="faqNo" value="${faq.faqNo}"> 
+	      <input type="hidden" id="pageNum" value="${param.pageNum}">
+	      <input type="hidden" id="amount" value="${param.amount}">
+	      
+	      <%-- 1. [제목 영역] --%>
+	      <div class="faq-detail-title">
+	         <span class="q-icon">Q.</span> ${faq.faqTitle}
+	      </div>
+	      
+	      <%-- 2. [작성일/조회수 영역] - 제목과 답변 사이에 위치 --%>
+	      <div class="faq-detail-meta">
+	         <span>작성일: ${faq.faqCreated}</span>
+	         <span>조회수: ${faq.faqHit}</span>
+	      </div>
+	      
+	      <%-- 3. [답변 영역] --%>
+	      <div class="faq-detail-answer">
+	         ${faq.faqContent}
+	      </div>
+	      
+	      <%-- 4. [버튼 영역] --%>
+	      <div class="button-area">
+	         <a href="faq" class="btn-list">목록으로</a>
+	      	<button type="button" id="btnModify" class="btn-action">수정</button>
+	      	<button type="button" id="btnDelete" class="btn-delete">삭제</button>
+	      </div>
+		  
+		  <form id="actionForm" action="" method="post">
+	        <input type="hidden" name="faq_no" id="actionFaqNo">
+	        <input type="hidden" name="pageNum" id="actionPageNum">
+	        <input type="hidden" name="amount" id="actionAmount">
+	    </form>
+	   </div>
+	</main>
 <jsp:include page="/WEB-INF/views/footer.jsp" />
 <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
 <script>
