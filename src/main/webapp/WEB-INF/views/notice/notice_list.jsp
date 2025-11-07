@@ -9,20 +9,34 @@
     <link rel="stylesheet" href="<c:out value='${pageContext.request.contextPath}/css/notice.css'/>">
 </head>
 <body>
-<form method="get" id="actionForm">
-    <input type="hidden" name="pageNum" value="<c:out value='${pageMaker.cri.pageNum}'/>">
-    <input type="hidden" name="amount" value="<c:out value='${pageMaker.cri.amount}'/>">
-</form>
 
 <jsp:include page="/WEB-INF/views/header.jsp" />
 
 <main id="notice-list-container" class="notice-list-container">
+
+    <form method="get" id="actionForm">
+        <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+        <input type="hidden" name="type" value="${pageMaker.cri.type}">
+        <input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
+    </form>
 
     <!-- 헤더 영역 -->
     <section class="notice-header">
         <h1 class="notice-title">공지사항</h1>
         <hr class="notice-divider">
     </section>
+
+    <form method="get" id="searchForm">
+        <select name="type">
+            <option value="" <c:out value="${pageMaker.cri.type == null?'selected':''}"/>>--</option>
+            <option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':''}"/>>제목</option>
+            <option value="C" <c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>내용</option>
+            <option value="TC" <c:out value="${pageMaker.cri.type eq 'TC'?'selected':''}"/>>제목 or 내용</option>
+        </select>
+        <input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
+        <button>Search</button>
+    </form>
 
     <!-- 공지사항 목록 -->
     <section class="notice-table-wrapper">

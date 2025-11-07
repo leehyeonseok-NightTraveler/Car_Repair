@@ -41,4 +41,15 @@ $(document).ready(function () {
 
         actionForm.attr("action", "/inquiry/inquiry_view").submit();
     });
+
+    // 검색 버튼 클릭 시 유효성 검사 및 검색 요청
+    $("#searchForm button").on("click", function () {
+
+        // 검색 조건 변경 시 키워드 초기화
+        $("#searchForm select").on("change", function () {
+            if (searchForm.find("option:selected").val() === "") {
+                searchForm.find("input[name='keyword']").val("");
+            }
+        });
+    });
 });

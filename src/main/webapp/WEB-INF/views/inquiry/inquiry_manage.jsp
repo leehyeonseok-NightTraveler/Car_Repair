@@ -35,6 +35,15 @@
             <hr class="inquiry-divider">
         </section>
 
+        <form method="get" id="searchForm">
+            <select name="type">
+                <option value="" <c:out value="${pageMaker.cri.type == null?'selected':''}"/>>--</option>
+                <option value="W" <c:out value="${pageMaker.cri.type eq 'W'?'selected':''}"/>>답변대기</option>
+                <option value="C" <c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>답변완료</option>
+            </select>
+            <button>Search</button>
+        </form>
+
         <section class="inquiry-table-wrapper">
             <table class="inquiry-table">
                 <thead>
