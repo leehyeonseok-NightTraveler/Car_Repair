@@ -60,7 +60,11 @@
                <input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
                
        	    <button type="button" id="searchBtn">검색</button>
-           <button type="button" id="writeBtn" class="btn-write">글쓰기</button>
+			<c:choose>
+               <c:when test="${sessionScope.ROLE == 'ADMIN'}">
+ 	               <button type="button" id="writeBtn" class="btn-write">글쓰기</button>
+               </c:when>
+           </c:choose>
            </form>
            
       </div>
