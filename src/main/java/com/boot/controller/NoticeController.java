@@ -34,9 +34,11 @@ public class NoticeController {
         log.info("noticeList()");
 
         String loginId = (String) session.getAttribute("accountId");
+        String Role =  (String) session.getAttribute("ROLE");
         if (loginId != null) {
             AccountDTO userInfo = noticeService.getUserInfo(loginId);
             model.addAttribute("userInfo", userInfo);
+            model.addAttribute("role", Role);
         }
 
         List<NoticeDTO> noticeList = noticeService.noticeList(param, cri);
@@ -57,9 +59,11 @@ public class NoticeController {
         log.info("noticeView()");
 
         String loginId = (String) session.getAttribute("accountId");
+        String Role =  (String) session.getAttribute("ROLE");
         if (loginId != null) {
             AccountDTO userInfo = noticeService.getUserInfo(loginId);
             model.addAttribute("userInfo", userInfo);
+            model.addAttribute("role", Role);
         }
 
         noticeService.increaseViews(param); // 조회수 증가

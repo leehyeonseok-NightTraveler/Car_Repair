@@ -31,11 +31,13 @@ public class InquiryController {
     public String inquiry_write(HttpSession session, Model model) {
         log.info("inquiryWrite()");
         String loginId = (String) session.getAttribute("accountId");
+        String Role =  (String) session.getAttribute("ROLE");
 
         if (loginId == null) return "redirect:/login";
 
         AccountDTO userInfo = service.getUserInfo(loginId);
         model.addAttribute("userInfo", userInfo);
+        model.addAttribute("role", Role);
 
         return "inquiry/inquiry_write";
     }
@@ -60,14 +62,14 @@ public class InquiryController {
                                   HttpSession session, Criteria cri) {
         log.info("inquiryHistory()");
         String loginId = (String) session.getAttribute("accountId");
-        String loginRole = (String) session.getAttribute("Role");
+        String Role = (String) session.getAttribute("ROLE");
 
         if (loginId == null) return "redirect:/login";
-        if (Objects.equals(loginRole, "ADMIN")) return "redirect:/inquiry/inquiry_manage";
+        if (Objects.equals(Role, "ADMIN")) return "redirect:/inquiry/inquiry_manage";
 
         AccountDTO userInfo = service.getUserInfo(loginId);
         model.addAttribute("userInfo", userInfo);
-
+        model.addAttribute("role", Role);
         param.put("customer_id", loginId);
         List<InquiryDTO> inquiryList = service.inquiryList(param, cri);
         model.addAttribute("inquiryList", inquiryList);
@@ -83,6 +85,7 @@ public class InquiryController {
     public String inquiry_view(@RequestParam HashMap<String, String> param, Model model, HttpSession session) {
         log.info("inquiryView()");
         String loginId = (String) session.getAttribute("accountId");
+        String Role = (String) session.getAttribute("ROLE");
 
         if (loginId == null) return "redirect:/login";
 
@@ -92,7 +95,7 @@ public class InquiryController {
         param.put("customer_id", loginId);
         InquiryDTO inquiryView = service.inquiryView(param);
         model.addAttribute("inquiryView", inquiryView);
-
+        model.addAttribute("role", Role);
         return "inquiry/inquiry_view";
     }
 

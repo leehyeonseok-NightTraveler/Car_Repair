@@ -94,7 +94,7 @@
     </nav>
 
     <!-- 글쓰기 버튼 (관리자만 보임) -->
-    <c:if test="${userInfo.accountRole eq 'ADMIN'}">
+    <c:if test="${role.equals('ADMIN')}">
         <div id="notice-actions">
             <button type="button" class="btn btn-submit"
                     onclick="location.href='<c:url value='/notice/notice_write'/>'">글쓰기</button>
