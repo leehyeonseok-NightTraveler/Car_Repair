@@ -39,7 +39,7 @@
             <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 
             <div class="button-group">
-                <c:if test="${userInfo.accountRole eq 'ADMIN'}">
+                <c:if test="${role.equals('ADMIN')}">
                     <input type="submit" value="수정" formaction="/notice/notice_modify" class="btn btn-modify">
                     <input type="submit" value="삭제" formaction="/notice/deleteProcess" class="btn btn-delete">
                 </c:if>

@@ -24,13 +24,13 @@
     <div class="floating-wrapper">
         <div class="floating-menu">
             <!-- USER 또는 STORE일 경우 -->
-            <c:if test="${userInfo.accountRole == 'USER' || userInfo.accountRole == 'STORE'}">
+            <c:if test="${role.equals('USER') || role.equals('STORE') }">
                 <a href="<c:url value='/inquiry/inquiry_write'/>">1:1 문의</a>
                 <a href="<c:url value='/inquiry/inquiry_history'/>">내 문의 내역</a>
             </c:if>
 
             <!-- ADMIN일 경우 -->
-            <c:if test="${userInfo.accountRole == 'ADMIN'}">
+            <c:if test="${role.equals('ADMIN')}">
                 <a href="<c:url value='/inquiry/inquiry_manage'/>">문의 관리</a>
             </c:if>
         </div>
@@ -53,7 +53,7 @@
 
     <c:choose>
         <%-- 관리자일 경우 --%>
-        <c:when test="${userInfo.accountRole eq 'ADMIN'}">
+        <c:when test="${role.equals('ADMIN')}">
             <form>
                 <section id="inquiry-reply" class="inquiry-reply">
                     <h3 class="reply-title">관리자 답변</h3>
