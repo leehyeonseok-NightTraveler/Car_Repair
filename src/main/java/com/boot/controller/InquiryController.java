@@ -206,4 +206,13 @@ public class InquiryController {
 
         return "inquiry/inquiry_manage";
     }
+
+    @RequestMapping("/deleteProcess")
+    public String deleteProcess(@RequestParam("deleteIds") List<Long> deleteIds) {
+        service.deleteInquiries(deleteIds);
+        return "redirect:/inquiry/inquiry_history";
+    }
+
+
+
 }

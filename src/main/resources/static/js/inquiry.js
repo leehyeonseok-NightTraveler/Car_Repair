@@ -1,25 +1,15 @@
 $(document).ready(function () {
     var actionForm = $("#actionForm");
-    $(".pagination-container .pagination-link").on("click", function (e) {
-        e.preventDefault();
-        var pageNum = $(this).attr("href");
 
-        actionForm.find("input[name='pageNum']").val(pageNum);
-
-        // 현재 URL 경로 확인
-        var currentPath = window.location.pathname;
-
-        // 경로에 따라 action 설정
-        if (currentPath.includes("/inquiry/inquiry_manage")) {
-            actionForm.attr("action", "/inquiry/inquiry_manage");
-        } else {
-            actionForm.attr("action", "/inquiry/inquiry_history");
-        }
-
-        actionForm.submit();
+    // --- 1. 페이징 처리 로직 (제거됨) ---
+    // [이전 대화에서 JSP의 <a class="pagination-link">의 href에 모든 쿼리 파라미터(pageNum, type, keyword)를
+    // 직접 포함하도록 수정했으므로, JS에서 기본 동작을 막고 actionForm을 사용하는 로직은 필요 없습니다.]
+    /* $(".pagination-container .pagination-link").on("click", function (e) {
+        // ... actionForm 로직 제거 ...
     });
+    */
 
-
+    // --- 2. 문의 상세 보기 로직 ---
     $(".inquiry-table .inquiry-link").on("click", function (e) {
         e.preventDefault();
         var href = $(this).attr("href");
@@ -30,6 +20,7 @@ $(document).ready(function () {
             return;
         }
 
+        // inquiry_no 파라미터가 중복되는 것을 막기 위해 기존에 추가된 것은 삭제
         actionForm.find("input[name='inquiry_no']").remove();
         actionForm.append(
             $("<input>").attr({
@@ -42,14 +33,91 @@ $(document).ready(function () {
         actionForm.attr("action", "/inquiry/inquiry_view").submit();
     });
 
+    // --- 3. 검색 로직 (유효성 검사 및 조건 초기화) ---
     // 검색 버튼 클릭 시 유효성 검사 및 검색 요청
     $("#searchForm button").on("click", function () {
+        // 이 부분에 검색 유효성 검사 로직을 추가할 수 있습니다.
+    });
 
-        // 검색 조건 변경 시 키워드 초기화
-        $("#searchForm select").on("change", function () {
-            if (searchForm.find("option:selected").val() === "") {
-                searchForm.find("input[name='keyword']").val("");
-            }
+    // 검색 조건 변경 시 키워드 초기화
+    $("#searchForm select").on("change", function () {
+        // 검색 유형이 "--" (value="")일 때 키워드를 초기화합니다.
+        if ($(this).val() === "") {
+            $("#searchForm input[name='keyword']").val("");
+        }
+    });
+
+    // --- 4. 문의 삭제 토글 로직 ---
+    // 삭제 모드 상태를 추적하는 변수
+    let isDeleteMode = false;
+
+    // '문의 삭제' 버튼 (ID: toggleDelete) 클릭 이벤트
+    $('#toggleDelete').on('click', function() {
+        if (!isDeleteMode) {
+            // 삭제 모드 활성화
+            $('#header-no').hide();
+            $('#selectAll').show();
+            $('.inquiry-no-text').hide();
+            $('.inquiry-checkbox').show();
+            $('#toggleDelete').hide();
+            $('#confirmDelete').show();
+            $('#cancelDelete').show();
+            isDeleteMode = true;
+        } else {
+            $('#cancelDelete').click();
+        }
+    });
+
+    // '취소' 버튼 (ID: cancelDelete) 클릭 이벤트
+    $('#cancelDelete').on('click', function() {
+        // 삭제 모드 비활성화
+        $('#header-no').show();
+        $('#selectAll').hide();
+        $('.inquiry-no-text').show();
+        $('.inquiry-checkbox').hide();
+        $('.inquiry-checkbox').prop('checked', false);
+        $('#selectAll').prop('checked', false);
+        $('#toggleDelete').show();
+        $('#confirmDelete').hide();
+        $('#cancelDelete').hide();
+        isDeleteMode = false;
+    });
+
+    // '전체 선택' 체크박스 기능
+    $('#selectAll').on('change', function() {
+        let isChecked = $(this).is(':checked');
+        $('.inquiry-checkbox').prop('checked', isChecked);
+    });
+
+    // --- 5. 삭제 처리 로직 ---
+    $('#deleteForm').on('submit', function(e) {
+        let selectedIds = [];
+
+        // 체크된 모든 체크박스의 value (inquiry_no)를 수집
+        $('.inquiry-checkbox:checked').each(function() {
+            selectedIds.push($(this).val());
         });
+
+        // 선택된 항목이 없으면 제출을 막고 알림
+        if (selectedIds.length === 0) {
+            e.preventDefault(); // 폼 제출 방지
+            alert("삭제할 문의를 선택해주세요.");
+            return false;
+        }
+
+        // 기존의 deleteIds hidden input 제거 (중복 방지)
+        $('#deleteForm input[name="deleteIds"]').remove();
+
+        // 선택된 ID들을 hidden input으로 추가
+        selectedIds.forEach(function(id) {
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'deleteIds', // 컨트롤러의 파라미터 이름과 일치
+                value: id
+            }).appendTo('#deleteForm');
+        });
+
+        // 폼 제출
+        return true;
     });
 });

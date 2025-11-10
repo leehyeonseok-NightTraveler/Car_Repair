@@ -13,7 +13,6 @@
 
 <main id="inquiry-history-container" class="inquiry-history-container">
 
-    <!-- 페이징용 폼 -->
     <form method="get" id="actionForm">
         <input type="hidden" name="pageNum" value="<c:out value='${pageMaker.cri.pageNum}'/>">
         <input type="hidden" name="amount" value="<c:out value='${pageMaker.cri.amount}'/>">
@@ -21,26 +20,21 @@
         <input type="hidden" name="keyword" value="<c:out value='${pageMaker.cri.keyword}'/>">
     </form>
 
-    <!-- 왼쪽 플로팅 메뉴 -->
     <div class="floating-wrapper">
         <div class="floating-menu">
-            <!-- USER 또는 STORE일 경우 -->
             <c:if test="${role.equals('USER') || role.equals('STORE') }">
                 <a href="<c:url value='/inquiry/inquiry_write'/>">1:1 문의</a>
                 <a href="<c:url value='/inquiry/inquiry_history'/>">내 문의 내역</a>
             </c:if>
 
-            <!-- ADMIN일 경우 -->
             <c:if test="${role.equals('ADMIN')}">
                 <a href="<c:url value='/inquiry/inquiry_manage'/>">문의 관리</a>
             </c:if>
         </div>
     </div>
 
-    <!-- 콘텐츠 박스 -->
     <div class="content">
 
-        <!-- 헤더 영역 -->
         <section class="inquiry-header">
             <h1 class="inquiry-title">문의 내역</h1>
             <hr class="inquiry-divider">
@@ -55,12 +49,16 @@
             <button>Search</button>
         </form>
 
-        <!-- 문의 목록 테이블 -->
+
         <section class="inquiry-table-wrapper">
             <table class="inquiry-table">
                 <thead>
                 <tr>
-                    <th class="col-no">번호</th>
+                    <%-- 번호 자리에 체크박스 및 '번호' 텍스트 배치 --%>
+                    <th class="col-no select-cell">
+                        <input type="checkbox" id="selectAll" style="display:none"/>
+                        <span id="header-no">번호</span>
+                    </th>
                     <th class="col-title">제목</th>
                     <th class="col-date">작성일</th>
                     <th class="col-status">처리 상태</th>
@@ -69,7 +67,12 @@
                 <tbody>
                 <c:forEach var="inquiry" items="${inquiryList}">
                     <tr class="inquiry-row">
-                        <td><c:out value="${inquiry.inquiry_no}"/></td>
+                            <%-- 개별 체크박스 및 번호 텍스트 배치 --%>
+                        <td class="select-cell">
+                            <input type="checkbox" name="deleteIds" value="${inquiry.inquiry_no}"
+                                   class="inquiry-checkbox" style="display:none"/>
+                            <span class="inquiry-no-text"><c:out value="${inquiry.inquiry_no}"/></span>
+                        </td>
                         <td>
                             <a class="inquiry-link"
                                href="<c:out value='inquiry/inquiry_view?inquiry_no=${inquiry.inquiry_no}'/>">
@@ -90,30 +93,42 @@
                 </tbody>
             </table>
         </section>
+
+        <div class="inquiry-actions">
+            <form method="post" action="deleteProcess" id="deleteForm">
+                <div class="button-group">
+                    <button type="button" id="toggleDelete" class="btn btn-primary">문의 삭제</button>
+                    <button type="submit" id="confirmDelete" class="btn btn-danger" style="display:none"
+                            onclick="return confirm('선택한 문의를 삭제하시겠습니까?')">삭제하기
+                    </button>
+                    <button type="button" id="cancelDelete" class="btn btn-secondary" style="display:none">취소</button>
+                </div>
+            </form>
+        </div>
+
+        <nav class="pagination-container">
+            <ul class="pagination-list">
+                <c:if test="${pageMaker.prev}">
+                    <li class="pagination-item prev paginate_button">
+                        <a class="pagination-link" href="${pageMaker.startPage - 1}&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[이전]</a>
+                    </li>
+                </c:if>
+
+                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                    <li class="pagination-item page-num paginate_button
+                <c:out value='${pageMaker.cri.pageNum == num ? "active" : ""}'/>">
+                        <a class="pagination-link" href="<c:out value='${num}'/>&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[${num}]</a>
+                    </li>
+                </c:forEach>
+
+                <c:if test="${pageMaker.next}">
+                    <li class="pagination-item next paginate_button">
+                        <a class="pagination-link" href="${pageMaker.endPage + 1}&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[다음]</a>
+                    </li>
+                </c:if>
+            </ul>
+        </nav>
     </div>
-
-    <!-- 페이징 영역 -->
-    <nav class="pagination-container">
-        <ul class="pagination-list">
-            <c:if test="${pageMaker.prev}">
-                <li class="pagination-item prev paginate_button">
-                    <a class="pagination-link" href="<c:out value='${pageMaker.startPage - 1}'/>">[이전]</a>
-                </li>
-            </c:if>
-
-            <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                <li class="pagination-item page-num paginate_button">
-                    <a class="pagination-link" href="<c:out value='${num}'/>">[${num}]</a>
-                </li>
-            </c:forEach>
-
-            <c:if test="${pageMaker.next}">
-                <li class="pagination-item next paginate_button">
-                    <a class="pagination-link" href="<c:out value='${pageMaker.endPage + 1}'/>">[다음]</a>
-                </li>
-            </c:if>
-        </ul>
-    </nav>
 </main>
 
 <jsp:include page="/WEB-INF/views/footer.jsp"/>

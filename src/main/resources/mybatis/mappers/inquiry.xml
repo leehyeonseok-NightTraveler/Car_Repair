@@ -141,4 +141,13 @@
         SELECT COUNT(*) FROM tbl_inquiry
     </select>
 
+    <delete id="deleteInquiries">
+        DELETE FROM tbl_inquiry
+        WHERE inquiry_no IN
+        <foreach item="no" collection="inquiryIds" open="(" separator="," close=")">
+            #{no}
+        </foreach>
+    </delete>
+
+
 </mapper>
