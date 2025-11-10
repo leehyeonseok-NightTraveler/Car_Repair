@@ -14,7 +14,7 @@
 
 <jsp:include page="/WEB-INF/views/header.jsp" />
 
-<div class="mypage-body">
+<div class="mypage-body admin">
 
   <div class="mypage-title">
     <h2>관리자 대시보드</h2>
@@ -31,14 +31,37 @@
       <tbody>
         <c:forEach var="u" items="${userList}">
           <tr>
-            <td>${u.user_name}</td>
+            <td>${u.userName}</td>
             <td>${u.email}</td>
-            <td>${u.phone_number}</td>
-            <td>${u.reg_date}</td>
-            <td class="${u.status eq '활성' ? 'active' : 'inactive'}">${u.status}</td>
+            <td>${u.phoneNumber}</td>
+            <td>${u.regDate}</td>
+            <td class="${u.account_status eq 'ACTIVE' ? 'active' : 'inactive'}">${u.account_status}</td>
             <td>
-              <button class="btn-sub">정지</button>
-              <button class="btn-sub">삭제</button>
+              <c:choose>
+                <c:when test="${u.account_status eq 'SUSPENDED'}">
+                  <!-- 복구 -->
+                  <form action="${pageContext.request.contextPath}/mypage/user/updateStatus" method="post" style="display:inline;">
+                    <input type="hidden" name="accountId" value="${u.accountId}">
+                    <input type="hidden" name="status" value="ACTIVE">
+                    <button type="submit" class="btn-sub approve">복구</button>
+                  </form>
+                </c:when>
+                <c:otherwise>
+                  <!-- 정지 -->
+                  <form action="${pageContext.request.contextPath}/mypage/user/updateStatus" method="post" style="display:inline;">
+                    <input type="hidden" name="accountId" value="${u.accountId}">
+                    <input type="hidden" name="status" value="SUSPENDED">
+                    <button type="submit" class="btn-sub reject">정지</button>
+                  </form>
+                </c:otherwise>
+              </c:choose>
+
+              <!-- 삭제 -->
+              <form action="${pageContext.request.contextPath}/mypage/user/updateStatus" method="post" style="display:inline;">
+                <input type="hidden" name="accountId" value="${u.accountId}">
+                <input type="hidden" name="status" value="DELETED">
+                <button type="submit" class="btn-sub">삭제</button>
+              </form>
             </td>
           </tr>
         </c:forEach>
@@ -53,18 +76,26 @@
       <c:when test="${not empty pendingStores}">
         <table class="data-table">
           <thead>
-            <tr><th>업체명</th><th>대표자</th><th>전화번호</th><th>신청일</th><th>승인</th></tr>
+            <tr><th>업체명</th><th>이메일</th><th>전화번호</th><th>신청일</th><th>승인</th></tr>
           </thead>
           <tbody>
             <c:forEach var="s" items="${pendingStores}">
               <tr>
-                <td>${s.store_name}</td>
-                <td>${s.owner_name}</td>
-                <td>${s.phone_number}</td>
-                <td>${s.reg_date}</td>
+                <td>${s.storeId}</td>
+                <td>${s.email}</td>
+                <td>${s.phoneNumber}</td>
+                <td>${s.regDate}</td>
                 <td>
-                  <button class="btn-sub approve">승인</button>
-                  <button class="btn-sub reject">거절</button>
+                  <form action="${pageContext.request.contextPath}/mypage/store/updateStatus" method="post" style="display:inline;">
+                    <input type="hidden" name="storeId" value="${s.storeId}">
+                    <input type="hidden" name="status" value="APPROVED">
+                    <button type="submit" class="btn-sub approve">승인</button>
+                  </form>
+                  <form action="${pageContext.request.contextPath}/mypage/store/updateStatus" method="post" style="display:inline;">
+                    <input type="hidden" name="storeId" value="${s.storeId}">
+                    <input type="hidden" name="status" value="REJECTED">
+                    <button type="submit" class="btn-sub reject">거절</button>
+                  </form>
                 </td>
               </tr>
             </c:forEach>

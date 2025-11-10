@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.dao.Mypage_AdminDAO">
+
+    <select id="getAllUsers" resultType="com.boot.dto.AccountDTO">
+        SELECT 
+            user_name       AS userName,
+            account_id      AS accountId,
+            email,
+            phone_number    AS phoneNumber,
+            reg_date        AS regDate,
+            account_status  AS account_status
+        FROM tbl_account
+        ORDER BY reg_date DESC
+    </select>
+
+    <select id="getPendingStores" resultType="com.boot.dto.StoreDTO">
+        SELECT 
+            store_id        AS storeId,
+            email,
+            phone_number    AS phoneNumber,
+            reg_date        AS regDate,
+            store_status    AS store_status
+        FROM tbl_store
+        WHERE store_status = 'PENDING'
+        ORDER BY reg_date DESC
+    </select>
+
+    <update id="updateAccountStatus">
+        UPDATE tbl_account
+        SET account_status = #{status}
+        WHERE account_id = #{accountId}
+    </update>
+
+    <update id="updateStoreStatus">
+        UPDATE tbl_store
+        SET store_status = #{status}
+        WHERE store_id = #{storeId}
+    </update>
+
+</mapper>

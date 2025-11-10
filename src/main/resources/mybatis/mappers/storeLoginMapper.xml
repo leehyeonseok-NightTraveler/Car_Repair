@@ -15,7 +15,8 @@
             latitude,
             longitude,
             description,
-            opening_hours AS openingHours
+            opening_hours AS openingHours,
+            store_status AS storeStatus  <!-- 추가 -->
         FROM tbl_store
         WHERE store_id = #{storeId}
           AND password = #{password}
