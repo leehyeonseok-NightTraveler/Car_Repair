@@ -3,7 +3,6 @@ package com.boot.dao;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 import com.boot.dto.AccountDTO;
 import com.boot.dto.StoreDTO;
 
@@ -11,16 +10,15 @@ import com.boot.dto.StoreDTO;
 public interface Mypage_AdminDAO {
 
     List<AccountDTO> getAllUsers();
-
     List<StoreDTO> getPendingStores();
 
-    void updateAccountStatus(
-        @Param("accountId") String accountId,
-        @Param("status") String status
-    );
+    void updateAccountStatus(@Param("accountId") String accountId,
+                             @Param("status") String status);
 
-    void updateStoreStatus(
-        @Param("storeId") String storeId,
-        @Param("status") String status
-    );
+    void updateStoreStatus(@Param("storeId") String storeId,
+                           @Param("status") String status);
+
+    // 추가: 관리자 권한 해제용
+    void updateAccountRole(@Param("accountId") String accountId,
+                           @Param("role") String role);
 }

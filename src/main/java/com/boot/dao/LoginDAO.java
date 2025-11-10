@@ -16,4 +16,6 @@ public interface LoginDAO {
     public void register(LoginDTO accountDTO);
     
     public ArrayList<LoginDTO> loginYn(HashMap<String, String>param);
+    
+    LoginDTO findByAccountId(String accountId);
 }
