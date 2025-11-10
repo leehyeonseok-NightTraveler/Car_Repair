@@ -4,14 +4,17 @@ import com.boot.dto.AccountDTO;
 import com.boot.dto.Criteria;
 import com.boot.dto.NoticeDTO;
 import org.apache.ibatis.annotations.Param;
+
 import java.util.HashMap;
 import java.util.List;
 
 public interface NoticeDAO {
 
     // 1. 공지사항 목록 조회 (페이징 포함)
-    List<NoticeDTO> noticeList(@Param("param") HashMap<String, String> param,
-                               @Param("cri") Criteria cri);
+    List<NoticeDTO> noticeList(
+            @Param("param") HashMap<String, String> param,
+            @Param("cri") Criteria cri
+    );
 
     // 2. 공지사항 상세 조회
     NoticeDTO noticeView(@Param("param") HashMap<String, String> param);
@@ -32,5 +35,5 @@ public interface NoticeDAO {
     void increaseViews(@Param("param") HashMap<String, String> param);
 
     // 8. 사용자 정보 조회
-    AccountDTO getUserInfo(String accountId);
+    AccountDTO getUserInfo(@Param("param") String accountId);
 }
