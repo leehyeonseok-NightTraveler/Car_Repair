@@ -85,17 +85,20 @@
         <ul class="pagination-list">
             <c:if test="${pageMaker.prev}">
                 <li class="pagination-item prev paginate_button">
-                    <a class="pagination-link" href="<c:out value='${pageMaker.startPage - 1}'/>">[이전]</a>
+                    <a class="pagination-link" href="${pageMaker.startPage - 1}&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[이전]</a>
                 </li>
             </c:if>
+
             <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                <li class="pagination-item page-num paginate_button">
-                    <a class="pagination-link" href="<c:out value='${num}'/>">[${num}]</a>
+                <li class="pagination-item page-num paginate_button
+                <c:out value='${pageMaker.cri.pageNum == num ? "active" : ""}'/>">
+                    <a class="pagination-link" href="<c:out value='${num}'/>&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[${num}]</a>
                 </li>
             </c:forEach>
+
             <c:if test="${pageMaker.next}">
                 <li class="pagination-item next paginate_button">
-                    <a class="pagination-link" href="<c:out value='${pageMaker.endPage + 1}'/>">[다음]</a>
+                    <a class="pagination-link" href="${pageMaker.endPage + 1}&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[다음]</a>
                 </li>
             </c:if>
         </ul>

@@ -33,15 +33,15 @@ main {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;    text-align: left; /* 기존 right → left */
-
+    margin-bottom: 20px;
+    text-align: left;
     font-size: 14px;
 }
 
 th, td {
     border: 1px solid #ddd;
     padding: 10px;
-    text-align: center;
+    text-align: center; /* 모든 셀은 기본적으로 중앙 정렬 */
 }
 
 th {
@@ -57,9 +57,33 @@ th {
 .notice-table .col-date   { width: 17%; }
 .notice-table .col-views  { width: 6%; }
 
+/* ❌ 이전에 추가했던 제목 셀의 왼쪽 정렬 오버라이드 코드를 삭제합니다.
+.notice-table td:nth-child(2) { text-align: left; }
+.notice-table th:nth-child(2) { text-align: left; }
+*/
+
 .notice-row:hover {
     background-color: #f9f9f9;
 }
+
+/* --- 목록 제목 링크 스타일 --- */
+.notice-link {
+    color: #333;
+    text-decoration: none;
+    display: block;
+    /* ⚠️ 제목 텍스트도 중앙 정렬이 되도록,
+       링크 자체의 정렬 속성을 제거하거나 center를 따르게 둡니다. */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.notice-link:hover {
+    text-decoration: underline;
+    color: #007acc;
+}
+/* ---------------------------------- */
+
 
 /* ===== 상세보기 ===== */
 .notice-view-title {
@@ -70,6 +94,23 @@ th {
     text-align: center;
     border: 1px solid #ddd;
 }
+
+/* --- 상세보기 메타 정보 --- */
+.notice-view-meta {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 13px;
+    color: #777;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-top: none;
+    margin-bottom: 20px;
+}
+
+.notice-view-meta span {
+    margin-left: 15px;
+}
+/* ---------------------------------- */
 
 .notice-view-content {
     padding: 20px;
@@ -88,8 +129,6 @@ th {
 }
 
 /* 입력창 스타일 */
-
-
 .input-title,
 .textarea-content {
     width: 100%;
@@ -138,12 +177,17 @@ th {
 }
 
 
-/* 버튼 색상 강조 (무채색 톤 유지) */
+/* 버튼 색상 강조 */
 .btn-submit { background-color: #444; color: #fff; }
+.btn-submit:hover { background-color: #333; }
 .btn-cancel { background-color: #666; color: #fff; }
+.btn-cancel:hover { background-color: #555; }
 .btn-list   { background-color: #888; color: #fff; }
+.btn-list:hover { background-color: #777; }
 .btn-modify { background-color: #888; color: #fff; }
-.btn-delete { background-color: #888; color: #fff; }
+.btn-modify:hover { background-color: #777; }
+.btn-delete { background-color: #e63946; color: #fff; }
+.btn-delete:hover { background-color: #c92a2a; }
 
 /* ===== 페이징 ===== */
 .pagination-container {
@@ -172,13 +216,30 @@ th {
     background-color: #ddd;
 }
 
+/* --- 현재 페이지 버튼 강조 스타일 --- */
+.pagination-item.active a {
+    background-color: #007acc;
+    color: #fff;
+    border-color: #007acc;
+    font-weight: bold;
+}
+
+.pagination-item.active a:hover {
+    background-color: #007acc;
+    color: #fff;
+}
+/* ----------------------------------------- */
+
+
 /* ===================== 검색 폼 ===================== */
 #searchForm {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 12px;
     margin-bottom: 10px;
     padding: 10px 0;
+    max-width: 100%;
 }
 
 #searchForm select {
@@ -215,5 +276,5 @@ th {
     background-color: #fff;
     color: #333;
     min-width: 200px;
-    flex: 1;
+    flex: 0;
 }

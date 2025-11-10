@@ -21,7 +21,6 @@
         <input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
     </form>
 
-    <!-- 헤더 영역 -->
     <section class="notice-header">
         <h1 class="notice-title">공지사항</h1>
         <hr class="notice-divider">
@@ -38,7 +37,6 @@
         <button>Search</button>
     </form>
 
-    <!-- 공지사항 목록 -->
     <section class="notice-table-wrapper">
         <table class="notice-table">
             <thead>
@@ -69,31 +67,36 @@
         </table>
     </section>
 
-    <!-- 페이징 영역 -->
     <nav class="pagination-container">
         <ul class="pagination-list">
+
+            <%-- 이전 페이지 --%>
             <c:if test="${pageMaker.prev}">
                 <li class="pagination-item prev paginate_button">
                     <a class="pagination-link"
-                       href="<c:out value='${pageMaker.startPage - 1}'/>">[이전]</a>
+                       href="${pageMaker.startPage - 1}&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[이전]</a>
                 </li>
             </c:if>
+
+            <%-- 페이지 번호 --%>
             <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                <li class="pagination-item page-num paginate_button">
+                <li class="pagination-item page-num paginate_button
+                    <c:out value='${pageMaker.cri.pageNum == num ? "active" : ""}'/>">
                     <a class="pagination-link"
-                       href="<c:out value='${num}'/>">[${num}]</a>
+                       href="<c:out value='${num}'/>&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[${num}]</a>
                 </li>
             </c:forEach>
+
+            <%-- 다음 페이지 --%>
             <c:if test="${pageMaker.next}">
                 <li class="pagination-item next paginate_button">
                     <a class="pagination-link"
-                       href="<c:out value='${pageMaker.endPage + 1}'/>">[다음]</a>
+                       href="${pageMaker.endPage + 1}&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[다음]</a>
                 </li>
             </c:if>
         </ul>
     </nav>
 
-    <!-- 글쓰기 버튼 (관리자만 보임) -->
     <c:if test="${role.equals('ADMIN')}">
         <div id="notice-actions">
             <button type="button" class="btn btn-submit"

@@ -90,10 +90,15 @@ public class InquiryServiceImpl implements InquiryService {
         return dao.TotalInquiry();
     }
 
-     @Override
+    @Override
+    public void deleteInquiries(List<Long> inquiryIds) {
+        InquiryDAO dao = sqlSession.getMapper(InquiryDAO.class);
+        dao.deleteInquiries(inquiryIds);
+    }
+
+    @Override
     public List<InquiryDTO> selectByAccountId(String accountId) {
         InquiryDAO dao = sqlSession.getMapper(InquiryDAO.class);
         return dao.selectByAccountId(accountId);
     }
-
 }

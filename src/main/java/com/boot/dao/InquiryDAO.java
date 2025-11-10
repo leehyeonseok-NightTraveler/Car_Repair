@@ -37,6 +37,9 @@ public interface InquiryDAO {
     // 8. 전체 문의 총 개수 (관리자용 페이징)
     int TotalInquiry();
 
+    // 9. 선택된 문의 일괄 삭제
+    void deleteInquiries(@Param("inquiryIds") List<Long> inquiryIds);
+
     // 문의 확인용
     List<InquiryDTO> selectByAccountId(@Param("accountId") String accountId);
 }

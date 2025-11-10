@@ -3,6 +3,7 @@ package com.boot.service;
 import com.boot.dto.AccountDTO;
 import com.boot.dto.Criteria;
 import com.boot.dto.InquiryDTO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +33,10 @@ public interface InquiryService {
 
     // 8. 전체 문의 총 개수 (관리자용 페이징)
     int TotalInquiry();
-  
+
+    // 9. 선택된 문의 일괄 삭제
+    void deleteInquiries(@Param("inquiryIds") List<Long> inquiryIds);
+
     // 문의 확인용
     List<InquiryDTO> selectByAccountId(String accountId);
 }
