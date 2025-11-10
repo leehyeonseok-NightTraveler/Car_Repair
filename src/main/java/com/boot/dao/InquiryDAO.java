@@ -32,10 +32,10 @@ public interface InquiryDAO {
     void replyProcess(@Param("param") HashMap<String, String> param);
 
     // 7. 사용자 문의 총 개수 (페이징용)
-    int TotalInquiryUser(@Param("loginId") String loginId);
+    int TotalInquiryUser(@Param("loginId") String loginId, Criteria cri);
 
     // 8. 전체 문의 총 개수 (관리자용 페이징)
-    int TotalInquiry();
+    int TotalInquiry(@Param("cri") Criteria cri);
 
     // 9. 선택된 문의 일괄 삭제
     void deleteInquiries(@Param("inquiryIds") List<Long> inquiryIds);

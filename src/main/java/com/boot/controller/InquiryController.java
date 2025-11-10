@@ -103,7 +103,7 @@ public class InquiryController {
         model.addAttribute("inquiryList", inquiryList);
 
         // 페이징 처리
-        int total = service.TotalInquiryUser(loginId);
+        int total = service.TotalInquiryUser(loginId, cri);
         model.addAttribute("pageMaker", new PagingDTO(total, cri));
 
         model.addAttribute("role", Role);
@@ -199,7 +199,8 @@ public class InquiryController {
         model.addAttribute("ManageList", inquiryManageList);
 
         // 페이징 처리
-        int total = service.TotalInquiry();
+        // ⚠️ 수정: TotalInquiry 메서드에 Criteria 객체를 전달하여 검색 조건이 적용된 총 개수를 얻도록 합니다.
+        int total = service.TotalInquiry(cri);
         model.addAttribute("pageMaker", new PagingDTO(total, cri));
 
         model.addAttribute("role", Role);
@@ -212,7 +213,4 @@ public class InquiryController {
         service.deleteInquiries(deleteIds);
         return "redirect:/inquiry/inquiry_history";
     }
-
-
-
 }

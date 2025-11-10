@@ -10,25 +10,21 @@
 </head>
 <body>
 
-<!-- 공통 헤더 -->
 <jsp:include page="/WEB-INF/views/header.jsp"/>
 
 <main id="inquiry-history-container" class="inquiry-history-container">
 
-    <!-- 페이징용 폼 -->
     <form method="get" id="actionForm">
         <input type="hidden" name="pageNum" value="<c:out value='${pageMaker.cri.pageNum}'/>">
         <input type="hidden" name="amount" value="<c:out value='${pageMaker.cri.amount}'/>">
-    </form>
+        <input type="hidden" name="type" value="<c:out value='${pageMaker.cri.type}'/>"> <input type="hidden" name="keyword" value="<c:out value='${pageMaker.cri.keyword}'/>"> </form>
 
-    <!-- 왼쪽 플로팅 메뉴 -->
     <div class="floating-wrapper">
         <div class="floating-menu">
             <a href="<c:url value='/inquiry/inquiry_manage'/>">문의 관리</a>
         </div>
     </div>
 
-    <!-- 콘텐츠 박스 -->
     <div class="content">
         <section class="inquiry-header">
             <h1 class="inquiry-title">문의 내역</h1>
@@ -80,25 +76,27 @@
         </section>
     </div>
 
-    <!-- 페이징 영역 -->
     <nav class="pagination-container">
         <ul class="pagination-list">
             <c:if test="${pageMaker.prev}">
                 <li class="pagination-item prev paginate_button">
-                    <a class="pagination-link" href="${pageMaker.startPage - 1}&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[이전]</a>
+                    <a class="pagination-link"
+                       href="inquiry_manage?pageNum=${pageMaker.startPage - 1}&amount=<c:out value='${pageMaker.cri.amount}'/>&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[이전]</a> <%-- 👈 수정: 경로 명시 및 파라미터 추가 --%>
                 </li>
             </c:if>
 
             <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
                 <li class="pagination-item page-num paginate_button
                 <c:out value='${pageMaker.cri.pageNum == num ? "active" : ""}'/>">
-                    <a class="pagination-link" href="<c:out value='${num}'/>&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[${num}]</a>
+                    <a class="pagination-link"
+                       href="inquiry_manage?pageNum=<c:out value='${num}'/>&amount=<c:out value='${pageMaker.cri.amount}'/>&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[${num}]</a> <%-- 👈 수정: 경로 명시 및 파라미터 추가 --%>
                 </li>
             </c:forEach>
 
             <c:if test="${pageMaker.next}">
                 <li class="pagination-item next paginate_button">
-                    <a class="pagination-link" href="${pageMaker.endPage + 1}&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[다음]</a>
+                    <a class="pagination-link"
+                       href="inquiry_manage?pageNum=${pageMaker.endPage + 1}&amount=<c:out value='${pageMaker.cri.amount}'/>&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[다음]</a> <%-- 👈 수정: 경로 명시 및 파라미터 추가 --%>
                 </li>
             </c:if>
         </ul>
@@ -106,7 +104,6 @@
 
 </main>
 
-<!-- 공통 푸터 -->
 <jsp:include page="/WEB-INF/views/footer.jsp"/>
 
 </body>
