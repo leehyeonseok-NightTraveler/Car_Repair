@@ -11,7 +11,8 @@
             email,
             phone_number    AS phoneNumber,
             reg_date        AS regDate,
-            account_status  AS account_status
+            account_status  AS account_status,
+            account_role    AS accountRole
         FROM tbl_account
         ORDER BY reg_date DESC
     </select>
@@ -38,6 +39,13 @@
         UPDATE tbl_store
         SET store_status = #{status}
         WHERE store_id = #{storeId}
+    </update>
+
+    <!-- 관리자 권한 해제 -->
+    <update id="updateAccountRole">
+        UPDATE tbl_account
+        SET account_role = #{role}
+        WHERE account_id = #{accountId}
     </update>
 
 </mapper>

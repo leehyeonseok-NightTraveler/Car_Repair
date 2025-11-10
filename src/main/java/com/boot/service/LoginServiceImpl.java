@@ -53,4 +53,11 @@ public class LoginServiceImpl implements LoginService {
         log.info("로그인 시도 결과: {}, 상태 = {}", user.getAccountId(), user.getAccountStatus());
         return list;
     }
+    
+    @Override
+    public LoginDTO findByAccountId(String accountId) {
+        LoginDAO dao = sqlSession.getMapper(LoginDAO.class);
+        return dao.findByAccountId(accountId);
+    }
+
 }

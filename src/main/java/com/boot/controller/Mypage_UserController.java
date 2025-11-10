@@ -13,7 +13,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.boot.dto.AccountDTO;
 import com.boot.dto.InquiryDTO;
+import com.boot.dto.LoginDTO;
 import com.boot.service.InquiryService;
+import com.boot.service.LoginService;
 import com.boot.service.Mypage_UserService;
 
 @Controller
@@ -26,21 +28,34 @@ public class Mypage_UserController {
     @Autowired
     private InquiryService inquiryService;
 
-    // 마이페이지 진입
+    @Autowired
+    private LoginService loginService;
+    
     @GetMapping
-    public String viewMypage(HttpSession session, Model model) {
+    public String viewMypage(HttpSession session, Model model, RedirectAttributes rttr) {
         String accountId = (String) session.getAttribute("accountId");
-        if (accountId == null) return "redirect:/login";
+
+        if (accountId == null) {
+            rttr.addFlashAttribute("error_msg", "로그인이 필요합니다.");
+            return "redirect:/login";
+        }
+
+        LoginDTO loginUser = loginService.findByAccountId(accountId);
+        if (loginUser == null || "DELETED".equalsIgnoreCase(loginUser.getAccountStatus())) {
+            session.invalidate();
+            rttr.addFlashAttribute("error_msg", "삭제된 계정으로 접근할 수 없습니다.");
+            return "redirect:/login";
+        }
 
         // 1. 회원 정보 조회
-        AccountDTO user = service.getUserInfo(accountId);
-        model.addAttribute("user", user);
+        AccountDTO userInfo = service.getUserInfo(accountId);
+        model.addAttribute("user", userInfo);
 
         // 2. 1:1 문의 내역 조회
         List<InquiryDTO> inquiryList = inquiryService.selectByAccountId(accountId);
         model.addAttribute("inquiryList", inquiryList);
 
-        return "mypage/mypage_user"; // JSP 파일명
+        return "mypage/mypage_user";
     }
     
     @GetMapping("/mypage_useredit")

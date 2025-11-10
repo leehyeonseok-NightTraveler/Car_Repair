@@ -16,5 +16,5 @@ public interface LoginService {
     
     public ArrayList<LoginDTO> loginYn(HashMap<String, String>param);
 
-
+    LoginDTO findByAccountId(String accountId);
 }
