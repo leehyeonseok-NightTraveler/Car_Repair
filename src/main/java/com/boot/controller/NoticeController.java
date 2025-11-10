@@ -17,9 +17,12 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 공지사항 관련 컨트롤러
+ */
 @Controller
 @Slf4j
-@RequestMapping("/notice") // 모든 요청 경로 앞에 /notice가 붙음
+@RequestMapping("/notice")
 public class NoticeController {
 
     @Autowired
@@ -33,18 +36,18 @@ public class NoticeController {
                              Model model, HttpSession session) {
         log.info("noticeList()");
 
-        String loginId = (String) session.getAttribute("accountId");
-        String Role =  (String) session.getAttribute("ROLE");
-        if (loginId != null) {
-            AccountDTO userInfo = noticeService.getUserInfo(loginId);
-            model.addAttribute("userInfo", userInfo);
+        // 사용자 역할 확인 (관리자 여부)
+        String Role = (String) session.getAttribute("ROLE");
+        if ("ADMIN".equals(Role)) {
             model.addAttribute("role", Role);
         }
 
+        // 공지사항 목록 조회
         List<NoticeDTO> noticeList = noticeService.noticeList(param, cri);
-        int total = noticeService.getTotalCount();
-
         model.addAttribute("list", noticeList);
+
+        // 페이징 처리 정보 추가
+        int total = noticeService.getTotalCount();
         model.addAttribute("pageMaker", new PagingDTO(total, cri));
 
         return "notice/notice_list";
@@ -58,18 +61,20 @@ public class NoticeController {
                              Model model, HttpSession session) {
         log.info("noticeView()");
 
-        String loginId = (String) session.getAttribute("accountId");
-        String Role =  (String) session.getAttribute("ROLE");
-        if (loginId != null) {
-            AccountDTO userInfo = noticeService.getUserInfo(loginId);
-            model.addAttribute("userInfo", userInfo);
+        // 사용자 역할 확인
+        String Role = (String) session.getAttribute("ROLE");
+        if ("ADMIN".equals(Role)) {
             model.addAttribute("role", Role);
         }
 
-        noticeService.increaseViews(param); // 조회수 증가
+        // 조회수 증가 처리
+        noticeService.increaseViews(param);
+
+        // 공지사항 상세 정보 조회
         NoticeDTO noticeView = noticeService.noticeView(param);
         int total = noticeService.getTotalCount();
 
+        // 모델에 데이터 추가
         model.addAttribute("view", noticeView);
         model.addAttribute("pageMaker", new PagingDTO(total, cri));
 
@@ -82,9 +87,10 @@ public class NoticeController {
     @RequestMapping("/notice_write")
     public String noticeWrite(HttpSession session) {
         log.info("notice_write()");
-        String loginId = (String) session.getAttribute("accountId");
 
-        if (loginId == null) return "redirect:/login";
+        // 관리자가 경우 작성 불가
+        String Role = (String) session.getAttribute("ROLE");
+        if (!"ADMIN".equals(Role)) return "redirect:/login";
 
         return "notice/notice_write";
     }
@@ -95,11 +101,12 @@ public class NoticeController {
     @RequestMapping("/writeProcess")
     public String writeProcess(@RequestParam HashMap<String, String> param, HttpSession session) {
         log.info("writeProcess()");
-        String loginId = (String) session.getAttribute("accountId");
 
-        if (loginId == null) return "redirect:/login";
+        // 관리자가 아닐 경우 작성 불가
+        String Role = (String) session.getAttribute("ROLE");
+        if (!"ADMIN".equals(Role)) return "redirect:/login";
 
-        param.put("notice_writer", loginId);
+        // 공지사항 등록 처리
         noticeService.writeProcess(param);
 
         return "redirect:/notice/notice_list";
@@ -112,14 +119,17 @@ public class NoticeController {
     public String noticeModify(@RequestParam HashMap<String, String> param, Criteria cri,
                                Model model, HttpSession session) {
         log.info("noticeModify()");
-        String loginId = (String) session.getAttribute("accountId");
 
-        if (loginId == null) return "redirect:/login";
+        // 관리자가 아닐 경우 수정 불가
+        String Role = (String) session.getAttribute("ROLE");
+        if (!"ADMIN".equals(Role)) return "redirect:/login";
 
+        // 수정할 공지사항 정보 조회
         NoticeDTO noticeModify = noticeService.noticeView(param);
-        int total = noticeService.getTotalCount();
-
         model.addAttribute("modify", noticeModify);
+
+        // 페이징 정보 추가
+        int total = noticeService.getTotalCount();
         model.addAttribute("pageMaker", new PagingDTO(total, cri));
 
         return "notice/notice_modify";
@@ -132,12 +142,15 @@ public class NoticeController {
     public String modify(@RequestParam HashMap<String, String> param,
                          RedirectAttributes attr, HttpSession session) {
         log.info("modifyProcess()");
-        String loginId = (String) session.getAttribute("accountId");
 
-        if (loginId == null) return "redirect:/login";
+        // 관리자가 아닐 경우 수정 불가
+        String Role = (String) session.getAttribute("ROLE");
+        if (!"ADMIN".equals(Role)) return "redirect:/login";
 
+        // 수정 처리
         noticeService.modifyProcess(param);
 
+        // 페이지 정보 유지
         attr.addAttribute("pageNum", param.get("pageNum"));
         attr.addAttribute("amount", param.get("amount"));
 
@@ -151,12 +164,15 @@ public class NoticeController {
     public String deleteProcess(@RequestParam HashMap<String, String> param,
                                 RedirectAttributes attr, HttpSession session) {
         log.info("deleteProcess()");
-        String loginId = (String) session.getAttribute("accountId");
 
-        if (loginId == null) return "redirect:/login";
+        // 관리자가 아닐 경우 삭제 불가
+        String Role = (String) session.getAttribute("ROLE");
+        if (!"ADMIN".equals(Role)) return "redirect:/login";
 
+        // 삭제 처리
         noticeService.deleteProcess(param);
 
+        // 페이지 정보 유지
         attr.addAttribute("pageNum", param.get("pageNum"));
         attr.addAttribute("amount", param.get("amount"));
 
