@@ -1,26 +1,23 @@
 package com.boot.dto;
 
-
-
+import lombok.*;
 import java.sql.Date;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor 
+@NoArgsConstructor
 @AllArgsConstructor
+@Getter @Setter @ToString @EqualsAndHashCode
 public class RecommendDTO {
-	
-	private String storeId;       // store_id
-    private String password;      // password
-    private String email;         // email
-    private String phoneNumber;   // phone_number
-    private Date regDate;         // reg_date
-    private String address;       // address
-    private double latitude;      // latitude
-    private double longitude;     // longitude
-    private String description;   // description
-    private String openingHours;  // opening_hours
+    private String storeId;
+    private String password;
+    private String email;
+    private String phoneNumber;
+    private Date regDate;
+    private String address;
+    private double latitude;
+    private double longitude;
+    private String description;
+    private String openingHours;
+    
+    private String provider;
+
 }
