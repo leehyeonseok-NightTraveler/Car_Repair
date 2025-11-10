@@ -75,12 +75,6 @@ public class Mypage_UserController {
             loginId = storeId;
         }
 
-        // 문의 목록 조회
-        List<InquiryDTO> inquiryList = inquiryService.inquiryList(param, cri);
-        // 2. 차량 목록 조회
-        List<MypageDTO> carList = carService.selectCarList(accountId);
-        model.addAttribute("carList", carList);
-
         // 3. 1:1 문의 내역 조회
         List<InquiryDTO> inquiryList = inquiryService.selectByAccountId(accountId);
         model.addAttribute("inquiryList", inquiryList);
@@ -90,50 +84,6 @@ public class Mypage_UserController {
         model.addAttribute("pageMaker", new PagingDTO(total, cri));
 
         return "mypage/mypage_user";
-    }
-
-    /** 차량 등록 */
-    @PostMapping("/addCar")
-    public String addCar(HttpSession session, MypageDTO dto, RedirectAttributes rttr) {
-        String accountId = (String) session.getAttribute("accountId");
-
-        if (accountId == null) {
-            rttr.addFlashAttribute("error_msg", "로그인이 필요합니다.");
-            return "redirect:/login";
-        }
-
-        dto.setAccount_id(accountId);
-
-        try {
-            carService.insertCar(dto);
-            rttr.addFlashAttribute("msg", "차량이 등록되었습니다.");
-        } catch (Exception e) {
-            rttr.addFlashAttribute("msg", "이미 등록된 차량번호이거나 오류가 발생했습니다.");
-        }
-
-        return "redirect:/mypage_user";
-    }
-
-    /** 차량 삭제 */
-    @GetMapping("/deleteCar")
-    public String deleteCar(@RequestParam("car_number") String carNumber,
-                            HttpSession session,
-                            RedirectAttributes rttr) {
-        String accountId = (String) session.getAttribute("accountId");
-
-        if (accountId == null) {
-            rttr.addFlashAttribute("error_msg", "로그인이 필요합니다.");
-            return "redirect:/login";
-        }
-
-        try {
-            carService.deleteCar(carNumber);
-            rttr.addFlashAttribute("msg", "차량이 삭제되었습니다.");
-        } catch (Exception e) {
-            rttr.addFlashAttribute("msg", "차량 삭제 중 오류가 발생했습니다.");
-        }
-
-        return "redirect:/mypage_user";
     }
 
     /** 회원정보 수정 */
