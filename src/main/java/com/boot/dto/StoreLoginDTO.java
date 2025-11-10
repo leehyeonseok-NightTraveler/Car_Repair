@@ -21,4 +21,7 @@ public class StoreLoginDTO {
     private double longitude;   // 경도 (NUMBER -> double)
     private String description; // CLOB -> String
     private String openingHours;
+    
+ // 추가: 승인 상태 컬럼
+    private String storeStatus;  // PENDING, APPROVED, REJECTED
 }

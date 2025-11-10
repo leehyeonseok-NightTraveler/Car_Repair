@@ -1,23 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>로그인</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainpage.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
 	<script src="${pageContext.request.contextPath}/js/jquery.js"></script>
 	<script src="${pageContext.request.contextPath}/js/login.js"></script>
 
-	<c:if test="${not empty loginFail}">
+	<c:if test="${not empty loginFailMsg}">
 		<script>
-			alert("아이디 또는 비밀번호가 틀렸습니다.");
+			alert("${loginFailMsg}");
 		</script>
 	</c:if>
-
 </head>
 
 <body>			
@@ -63,16 +62,16 @@
 				</td>
 			</tr>
 			<tr>
-					<td colspan="3" class="td1">
-						<c:choose>
+				<td colspan="3" class="td1">
+					<c:choose>
 						<c:when test="${not empty loginFailMsg}">
 							<div class="lockTime">${loginFailMsg}</div>
 						</c:when>
 						<c:otherwise>
 							<div class="lockTime">&nbsp;</div>
 						</c:otherwise>
-						</c:choose>
-					</td>
+					</c:choose>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="3" class="login_btn">
@@ -80,21 +79,19 @@
 				</td>
 			</tr>				
 			<tr>
-                    <td class="btn3" colspan="3">
-                        <a href="findAccount" class="link">아이디 찾기</a>
-                        &nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;
-                        <a href="findPW" class="link">비밀번호 찾기</a>
-                        &nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;
-                        <a href="register" class="link">회원가입</a>
-                    </td>
+				<td class="btn3" colspan="3">
+					<a href="findAccount" class="link">아이디 찾기</a>
+					&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;
+					<a href="findPW" class="link">비밀번호 찾기</a>
+					&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;
+					<a href="register" class="link">회원가입</a>
+				</td>
 			</tr>
 		</table>
 	</form>
 </main>
 
-
 <jsp:include page="/WEB-INF/views/footer.jsp" />
 
 </body>
-
 </html>

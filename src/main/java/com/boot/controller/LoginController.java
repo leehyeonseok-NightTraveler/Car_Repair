@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,37 +39,34 @@ public class LoginController {
         
         HttpSession session = request.getSession();
         
-        // 세션 기반 로그인 실패 제한
+        // 실패 횟수 및 잠금 확인
         Integer failCount = (Integer) session.getAttribute("loginFailCount");
         Long lockTime = (Long) session.getAttribute("lockTime");
         if (failCount == null) failCount = 0;
 
-        // 잠금 상태 확인
         if (lockTime != null) {
-            long diff = (System.currentTimeMillis() - lockTime) / 1000; // 초 단위 계산
+            long diff = (System.currentTimeMillis() - lockTime) / 1000;
             if (diff < 30) {
                 long remain = 30 - diff;
                 redirectAttributes.addFlashAttribute("loginFailMsg", "로그인 잠금 상태입니다. " + remain + "초 후 다시 시도하세요.");
                 return "redirect:/login";
             } else {
-                // 30초 지나면 잠금 해제
                 session.removeAttribute("lockTime");
                 session.setAttribute("loginFailCount", 0);
                 failCount = 0;
             }
-        }         
+        }
 
+        // 로그인 시도
         HashMap<String, String> param = new HashMap<>();
         param.put("accountId", accountId);
         param.put("password", password);
 
         ArrayList<LoginDTO> dtos = loginService.loginYn(param);
 
-        
-        //로그인 확인 로직            
         if (dtos == null || dtos.isEmpty()) {
-//        	아이디 없을 시 실패 카운트 추가
-        	failCount++;
+            // 로그인 실패
+            failCount++;
             session.setAttribute("loginFailCount", failCount);
 
             if (failCount >= 5) {
@@ -79,84 +75,79 @@ public class LoginController {
             } else {
                 redirectAttributes.addFlashAttribute("loginFailMsg", "아이디 또는 비밀번호가 틀렸습니다. (" + failCount + "/5)");
             }
-        	
-        	redirectAttributes.addFlashAttribute("loginFail", true);
+
+            redirectAttributes.addFlashAttribute("loginFail", true);
             return "redirect:/login";
         } else {
-            // 로그인 정보가 있을 때
             LoginDTO dto = dtos.get(0);
 
-            if (password.equals(dto.getPassword())) { // 비밀번호 일치 확인
-                String role = dto.getAccountRole(); // DB에서 불러온 권한(USER/ADMIN)
-                
-                log.info("@@@ DB password => {}", dto.getPassword());
-                log.info("@@@ 입력 password => {}", password);
-                log.info("@@@ DB role => {}", dto.getAccountRole());
-                                  
-                // 아이디 저장 체크박스 처리
-                if (saveId != null) { // 체크되어 있음
+            // 계정 상태 확인 (정지/삭제)
+            String status = dto.getAccountStatus();
+            if ("SUSPENDED".equals(status)) {
+                redirectAttributes.addFlashAttribute("loginFailMsg", "정지된 계정입니다. 관리자에게 문의하세요.");
+                redirectAttributes.addFlashAttribute("loginFail", true);
+                return "redirect:/login";
+            } else if ("DELETED".equals(status)) {
+                redirectAttributes.addFlashAttribute("loginFailMsg", "삭제된 계정입니다. 로그인할 수 없습니다.");
+                redirectAttributes.addFlashAttribute("loginFail", true);
+                return "redirect:/login";
+            }
+
+            // 정상 로그인 시
+            if (password.equals(dto.getPassword())) {
+                String role = dto.getAccountRole();
+
+                // 아이디 저장 체크박스
+                if (saveId != null) {
                     Cookie cookie = new Cookie("savedId", accountId);
-                    cookie.setMaxAge(60 * 60 * 24 * 7); // 7일 유지
+                    cookie.setMaxAge(60 * 60 * 24 * 7);
                     cookie.setPath("/");
                     response.addCookie(cookie);
-                    log.info("@@@ 아이디 저장 쿠키 생성");
-                } else { // 체크 해제
+                } else {
                     Cookie cookie = new Cookie("savedId", null);
-                    cookie.setMaxAge(0); // 즉시 삭제
+                    cookie.setMaxAge(0);
                     cookie.setPath("/");
                     response.addCookie(cookie);
-                    log.info("@@@ 아이디 저장 쿠키 삭제");
                 }
-                
-                if ("USER".equals(role)) {
-                    session.setAttribute("ROLE", "USER");//로그인 성공 시 유저 세션추가      
-                    session.setAttribute("accountId", accountId);
-                                           
-                    session.removeAttribute("loginFailCount");
-                    session.removeAttribute("lockTime");
-                    
+
+                // 역할별 세션 처리
+                session.setAttribute("accountId", accountId);
+                session.setAttribute("ROLE", role);
+                session.removeAttribute("loginFailCount");
+                session.removeAttribute("lockTime");
+
+                if ("ADMIN".equals(role)) {
                     return "redirect:/main";
-                } else if ("ADMIN".equals(role)) {
-                    session.setAttribute("ROLE", "ADMIN");//로그인 성공 시 관리자 세션 추가
-                    session.setAttribute("accountId", accountId);
-                    
-                    session.removeAttribute("loginFailCount");
-                    session.removeAttribute("lockTime");
-                    
+                } else if ("USER".equals(role)) {
                     return "redirect:/main";
                 } else {
+                    redirectAttributes.addFlashAttribute("loginFailMsg", "권한이 올바르지 않습니다.");
                     return "redirect:/login";
                 }
 
             } else {
-            	
-            	redirectAttributes.addFlashAttribute("loginFail", true);
                 // 비밀번호 불일치
-            	
-            	   failCount++;
-                   session.setAttribute("loginFailCount", failCount);
+                failCount++;
+                session.setAttribute("loginFailCount", failCount);
 
-                   if (failCount >= 5) {
-                       session.setAttribute("lockTime", System.currentTimeMillis());
-                       redirectAttributes.addFlashAttribute("loginFailMsg", "5회 이상 실패로 30초간 잠금되었습니다.");
-                   } else {
-                       redirectAttributes.addFlashAttribute("loginFailMsg", "비밀번호가 틀렸습니다. (" + failCount + "/5)");
-                   }
-            	
-            	
+                if (failCount >= 5) {
+                    session.setAttribute("lockTime", System.currentTimeMillis());
+                    redirectAttributes.addFlashAttribute("loginFailMsg", "5회 이상 실패로 30초간 잠금되었습니다.");
+                } else {
+                    redirectAttributes.addFlashAttribute("loginFailMsg", "비밀번호가 틀렸습니다. (" + failCount + "/5)");
+                }
+
+                redirectAttributes.addFlashAttribute("loginFail", true);
                 return "redirect:/login";
             }
-        }//end) 로그인 정보 존재 시
-        
+        }
     }
-    
-    //로그아웃
+
+    // 로그아웃
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        log.info("로그아웃 완료");    
-        
+        log.info("로그아웃 완료");
         return "redirect:/login";
     }
-    
 }

@@ -38,23 +38,19 @@ public class LoginServiceImpl implements LoginService {
 
         LoginDTO user = list.get(0); // 첫 번째 결과 사용
 
-        // ✅ 상태값 체크 추가
+        // 상태값 체크 - 예외 대신 상태값 유지
         if ("PENDING".equalsIgnoreCase(user.getAccountStatus())) {
             log.warn("로그인 차단: 승인 대기 중인 계정");
-            throw new IllegalStateException("관리자 승인 대기 중인 계정입니다.");
-        }
-
-        if ("SUSPENDED".equalsIgnoreCase(user.getAccountStatus())) {
+            user.setAccountStatus("PENDING");
+        } else if ("SUSPENDED".equalsIgnoreCase(user.getAccountStatus())) {
             log.warn("로그인 차단: 정지된 계정");
-            throw new IllegalStateException("정지된 계정입니다. 관리자에게 문의하세요.");
-        }
-
-        if ("DELETED".equalsIgnoreCase(user.getAccountStatus())) {
+            user.setAccountStatus("SUSPENDED");
+        } else if ("DELETED".equalsIgnoreCase(user.getAccountStatus())) {
             log.warn("로그인 차단: 탈퇴된 계정");
-            throw new IllegalStateException("이미 탈퇴된 계정입니다.");
+            user.setAccountStatus("DELETED");
         }
 
-        log.info("로그인 성공: {}", user.getAccountId());
+        log.info("로그인 시도 결과: {}, 상태 = {}", user.getAccountId(), user.getAccountStatus());
         return list;
     }
 }
