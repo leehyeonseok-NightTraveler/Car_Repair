@@ -1,13 +1,17 @@
 package com.boot.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.boot.dto.Criteria;
+import com.boot.dto.PagingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -27,22 +31,53 @@ public class Mypage_AdminController {
 
     /** 관리자 마이페이지 (회원/업체 관리) */
     @GetMapping("/mypage_admin")
-    public String adminDashboard(Model model, HttpSession session) {
-        log.info("@# GET /mypage_admin");
+    public String adminDashboard(
+            Model model,
+            HttpSession session,
+            // 회원 목록 페이징을 위한 Criteria 객체: userPageNum, userAmount 등을 받음
+            @ModelAttribute("userCri") Criteria userCri,
+            // 업체 승인 요청 페이징을 위한 Criteria 객체: storePageNum, storeAmount 등을 받음
+            @ModelAttribute("storeCri") Criteria storeCri)
+    {
+        log.info("@# GET /mypage_admin - User Criteria: {}", userCri);
+        log.info("@# GET /mypage_admin - Store Criteria: {}", storeCri);
 
-        // 세션 체크
-        String role = (String) session.getAttribute("ROLE");
-        if (role == null || !role.equals("ADMIN")) {
+        // 로그인 및 권한 확인 (기존 로직 유지)
+        String Role = (String) session.getAttribute("ROLE");
+        if (Role == null || !Role.equals("ADMIN")) {
             return "redirect:/login";
         }
 
-        // 회원 목록
-        List<AccountDTO> userList = adminService.getAllUsers();
-        // 승인 대기중 업체 목록
-        List<StoreDTO> pendingStores = adminService.getPendingStores();
+        // --- 1. 회원 목록 페이징 처리 (userPageMaker) ---
 
+        // 1-1. 페이징 조건에 맞는 회원 목록 조회
+        // DAO: getAllUsersWithPaging(Criteria) 호출
+        List<AccountDTO> userList = adminService.getAllUsers(userCri);
         model.addAttribute("userList", userList);
+
+        // 1-2. 회원 전체 수 조회 (userCri 사용)
+        // DAO: getTotalUserCount(Criteria) 호출
+        int userTotal = adminService.getTotalUserCount(userCri); // 서비스 메서드 이름을 countUser 대신 getTotalUserCount로 사용한다고 가정
+
+        // 1-3. 회원 페이징 정보(PagingDTO) 생성 및 모델 추가
+        model.addAttribute("userPageMaker", new PagingDTO(userTotal, userCri));
+
+
+        // --- 2. 승인 대기중 업체 목록 페이징 처리 (storePageMaker) ---
+
+        // 2-1. 페이징 조건에 맞는 승인 대기중 업체 목록 조회
+        // DAO: getPendingStoresWithPaging(Criteria) 호출
+        List<StoreDTO> pendingStores = adminService.getPendingStoresWithPaging(storeCri);
         model.addAttribute("pendingStores", pendingStores);
+
+        // 2-2. 승인 대기중 업체 전체 수 조회 (storeCri 사용)
+        // DAO: countPendingStores(Criteria) 호출
+        int storeTotal = adminService.countPendingStores(storeCri);
+
+        // 2-3. 업체 페이징 정보(PagingDTO) 생성 및 모델 추가
+        model.addAttribute("storePageMaker", new PagingDTO(storeTotal, storeCri));
+
+
         return "mypage/mypage_admin";
     }
 

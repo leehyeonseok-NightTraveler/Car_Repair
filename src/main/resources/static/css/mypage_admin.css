@@ -64,3 +64,43 @@
   border-radius: 6px;
   border: 1px solid #ccc;
 }
+
+/* Pagination */
+.pagination-container {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.pagination-list {
+    list-style: none;
+    padding: 0;
+    display: inline-flex;
+    gap: 6px;
+}
+
+.pagination-item a {
+    display: block;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.pagination-item a:hover {
+    background-color: #ddd;
+}
+
+/* 현재 페이지 버튼 강조 스타일 */
+.pagination-item.active a {
+    background-color: #007acc; /* 강조 색상 */
+    color: #fff;
+    border-color: #007acc;
+    font-weight: bold;
+}
+
+.pagination-item.active a:hover {
+    background-color: #007acc; /* hover 시에도 색상 유지 */
+    color: #fff;
+}
