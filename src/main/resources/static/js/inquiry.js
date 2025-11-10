@@ -1,14 +1,6 @@
 $(document).ready(function () {
     var actionForm = $("#actionForm");
 
-    // --- 1. 페이징 처리 로직 (제거됨) ---
-    // [이전 대화에서 JSP의 <a class="pagination-link">의 href에 모든 쿼리 파라미터(pageNum, type, keyword)를
-    // 직접 포함하도록 수정했으므로, JS에서 기본 동작을 막고 actionForm을 사용하는 로직은 필요 없습니다.]
-    /* $(".pagination-container .pagination-link").on("click", function (e) {
-        // ... actionForm 로직 제거 ...
-    });
-    */
-
     // --- 2. 문의 상세 보기 로직 ---
     $(".inquiry-table .inquiry-link").on("click", function (e) {
         e.preventDefault();

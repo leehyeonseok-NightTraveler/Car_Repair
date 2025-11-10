@@ -29,10 +29,10 @@ public interface InquiryService {
     void replyProcess(HashMap<String, String> param);
 
     // 7. 사용자 문의 총 개수 (페이징용)
-    int TotalInquiryUser(String loginId);
+    int TotalInquiryUser(String loginId, Criteria cri);
 
     // 8. 전체 문의 총 개수 (관리자용 페이징)
-    int TotalInquiry();
+    int TotalInquiry(Criteria cri);
 
     // 9. 선택된 문의 일괄 삭제
     void deleteInquiries(@Param("inquiryIds") List<Long> inquiryIds);

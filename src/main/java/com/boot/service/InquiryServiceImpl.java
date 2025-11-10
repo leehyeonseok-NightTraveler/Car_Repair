@@ -76,18 +76,18 @@ public class InquiryServiceImpl implements InquiryService {
      * 7. 사용자 문의 총 개수
      */
     @Override
-    public int TotalInquiryUser(String loginId) {
+    public int TotalInquiryUser(String loginId, Criteria cri) {
         InquiryDAO dao = sqlSession.getMapper(InquiryDAO.class);
-        return dao.TotalInquiryUser(loginId);
+        return dao.TotalInquiryUser(loginId, cri);
     }
 
     /**
      * 8. 전체 문의 총 개수 (관리자용)
      */
     @Override
-    public int TotalInquiry() {
+    public int TotalInquiry(Criteria cri) {
         InquiryDAO dao = sqlSession.getMapper(InquiryDAO.class);
-        return dao.TotalInquiry();
+        return dao.TotalInquiry(cri);
     }
 
     @Override

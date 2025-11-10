@@ -75,7 +75,7 @@
                         </td>
                         <td>
                             <a class="inquiry-link"
-                               href="<c:out value='inquiry/inquiry_view?inquiry_no=${inquiry.inquiry_no}'/>">
+                               href="<c:url value='/inquiry/inquiry_view?inquiry_no=${inquiry.inquiry_no}'/>"> <%-- 👈 수정: c:url 사용 및 경로 명확화 --%>
                                 <c:out value="${inquiry.inquiry_title}"/>
                             </a>
                         </td>
@@ -108,22 +108,28 @@
 
         <nav class="pagination-container">
             <ul class="pagination-list">
+                <%-- 이전 페이지 --%>
                 <c:if test="${pageMaker.prev}">
                     <li class="pagination-item prev paginate_button">
-                        <a class="pagination-link" href="${pageMaker.startPage - 1}&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[이전]</a>
+                        <a class="pagination-link"
+                           href="inquiry_history?pageNum=${pageMaker.startPage - 1}&amount=<c:out value='${pageMaker.cri.amount}'/>&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[이전]</a> <%-- 👈 수정: 경로 명시 및 파라미터 추가 --%>
                     </li>
                 </c:if>
 
+                <%-- 페이지 번호 --%>
                 <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
                     <li class="pagination-item page-num paginate_button
                 <c:out value='${pageMaker.cri.pageNum == num ? "active" : ""}'/>">
-                        <a class="pagination-link" href="<c:out value='${num}'/>&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[${num}]</a>
+                        <a class="pagination-link"
+                           href="inquiry_history?pageNum=<c:out value='${num}'/>&amount=<c:out value='${pageMaker.cri.amount}'/>&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[${num}]</a> <%-- 👈 수정: 경로 명시 --%>
                     </li>
                 </c:forEach>
 
+                <%-- 다음 페이지 --%>
                 <c:if test="${pageMaker.next}">
                     <li class="pagination-item next paginate_button">
-                        <a class="pagination-link" href="${pageMaker.endPage + 1}&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[다음]</a>
+                        <a class="pagination-link"
+                           href="inquiry_history?pageNum=${pageMaker.endPage + 1}&amount=<c:out value='${pageMaker.cri.amount}'/>&type=<c:out value='${pageMaker.cri.type}'/>&keyword=<c:out value='${pageMaker.cri.keyword}'/>">[다음]</a> <%-- 👈 수정: 경로 명시 및 파라미터 추가 --%>
                     </li>
                 </c:if>
             </ul>
