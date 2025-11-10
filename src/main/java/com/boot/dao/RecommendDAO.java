@@ -6,7 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.boot.dto.RecommendDTO;
 
-@Mapper
+
+@Mapper// DB 직접 접근은 거의 안하지만 남겨둠
 public interface RecommendDAO {
     int insertCoordinate(RecommendDTO dto);
     int selectListCount(RecommendDTO dto);
