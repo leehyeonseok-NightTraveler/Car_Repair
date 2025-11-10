@@ -3,39 +3,40 @@ package com.boot.dao;
 import com.boot.dto.AccountDTO;
 import com.boot.dto.Criteria;
 import com.boot.dto.InquiryDTO;
-
 import java.util.HashMap;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface InquiryDAO {
 
     // 1. 사용자 문의 등록
-    void writeProcess(HashMap<String, String> param);
+    void writeProcess(@Param("param") HashMap<String, String> param);
 
     // 2. 사용자 문의 목록 조회 (페이징 포함)
-    List<InquiryDTO> inquiryList(HashMap<String, String> param, Criteria cri);
+    List<InquiryDTO> inquiryList(@Param("param") HashMap<String, String> param,
+                                 @Param("cri") Criteria cri);
 
     // 3. 관리자 문의 목록 조회 (페이징 포함)
-    List<InquiryDTO> inquiryManageList(HashMap<String, String> param, Criteria cri);
+    List<InquiryDTO> inquiryManageList(@Param("param") HashMap<String, String> param,
+                                       @Param("cri") Criteria cri);
 
     // 4. 문의 상세 조회
-    InquiryDTO inquiryView(HashMap<String, String> param);
+    InquiryDTO inquiryView(@Param("param") HashMap<String, String> param);
 
     // 5. 사용자 정보 조회
-    AccountDTO getUserInfo(String accountId);
+    AccountDTO getUserInfo(@Param("accountId") String accountId);
 
     // 6. 관리자 답변 등록
-    void replyProcess(HashMap<String, String> param);
+    void replyProcess(@Param("param") HashMap<String, String> param);
 
     // 7. 사용자 문의 총 개수 (페이징용)
-    int TotalInquiryUser(String loginId);
+    int TotalInquiryUser(@Param("loginId") String loginId);
 
     // 8. 전체 문의 총 개수 (관리자용 페이징)
     int TotalInquiry();
-  
+
     // 문의 확인용
-    List<InquiryDTO> selectByAccountId(String accountId);
+    List<InquiryDTO> selectByAccountId(@Param("accountId") String accountId);
 }
