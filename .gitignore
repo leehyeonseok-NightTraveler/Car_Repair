@@ -1,16 +1,25 @@
-# Compiled class file
-*.class
+# === Build output ===
+/target/
+/bin/
+/build/
+/out/
 
-# Log file
+# === IDE settings ===
+/.project
+/.classpath
+/.settings/
+
+# === Logs ===
 *.log
 
-# BlueJ files
-*.ctxt
+# === Java compiled files ===
+*.class
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# === OS-specific ===
+.DS_Store
+Thumbs.db
 
-# Package Files #
+# === Archive packages ===
 *.jar
 *.war
 *.nar
@@ -19,6 +28,28 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# === Temp & backup files ===
+*.tmp
+*.bak
+
+# === Spring Boot / application config ===
+# ⚠️ Keep shared config tracked
+!src/main/resources/application.yml
+!src/main/resources/application.properties
+
+# === Node (for frontend) ===
+/node_modules/
+/package-lock.json
+
+# === Crash logs ===
 hs_err_pid*
 replay_pid*
+
+# === Gradle cache ===
+/.gradle/
+
+# === Allow static resources ===
+!src/main/resources/static/
+!src/main/resources/static/**
+!src/main/resources/templates/
+!src/main/resources/templates/**
